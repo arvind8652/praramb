@@ -7,23 +7,19 @@ import { Button } from "react-bootstrap";
 import CustomerForm from "../components/forms/CustomerForm";
 import { CUSTOMER_FORM, NOTIFICATION_FORM } from "../utities/constants";
 import NotificationForm from "../components/forms/NotificationForm";
+import {
+  faIndianRupee,
+  faPersonWalking,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
+import MemberShipSummary from "../components/forms/MemberShipSummary";
 
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalFor, setModalFor] = useState(CUSTOMER_FORM);
   return (
     <div className="container  p-3">
-      <div className="row text-center">
-        <div className="col">
-          <CustCard />
-        </div>
-        <div className="col">
-          <CustCard />
-        </div>
-        <div className="col">
-          <CustCard />
-        </div>
-      </div>
+      <MemberShipSummary />
       <div className="row">
         <div className="col-8">
           <CustTable

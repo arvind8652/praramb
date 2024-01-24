@@ -15,7 +15,7 @@ const CustTable = (props) => {
         className="card-header"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <h4 className="my-auto">Notification</h4>
+        <h4 className="my-auto">Customers</h4>
         <button className="btn btn-primary btn-sm" {...props}>
           Add
         </button>

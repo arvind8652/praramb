@@ -1,18 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIndianRupee } from "@fortawesome/free-solid-svg-icons";
 
-const CustCard = () => {
+const CustCard = (props) => {
+  const { icon, data, text } = props;
   return (
     <div className="card text-center shadow p-3 mb-5 bg-white rounded">
       <div className="card-body">
-        <h5 className="card-title">
-          <FontAwesomeIcon icon={faIndianRupee} size="3x" />
-          300
+        <h5 className="card-title d-flex justify-content-around">
+          <FontAwesomeIcon icon={icon} size="3x" />
+          <div className="card fs-1 shadow p-2 bg-white rounded">{data}</div>
         </h5>
-        <p className="card-text">
-          With supporting text below as a natural lead-in to additional content.
-        </p>
+        <h5 className="card-text">{text}</h5>
       </div>
     </div>
   );

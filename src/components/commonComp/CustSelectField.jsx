@@ -4,9 +4,9 @@ import { Form } from "react-bootstrap";
 const CustSelectField = (props) => {
   const { label, placeholder, type, name } = props;
   return (
-    <Form.Group>
+    <Form.Group className="card p-2 shadow-sm bg-white rounded">
       <Form.Label>{label}</Form.Label>
-      <Form.Select>
+      <Form.Select className="bg-light">
         <option>One</option>
         <option>two</option>
       </Form.Select>
