@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CustListGroup from "../components/NotificationsList";
-import CustTable from "../components/commonComp/CustTable";
+import CustTable from "../components/CustomersList";
 import CustModal from "../components/commonComp/CustModal";
 import CustomerForm from "../components/forms/CustomerForm";
 import { CUSTOMER_FORM, NOTIFICATION_FORM } from "../utities/constants";

@@ -13,10 +13,7 @@ const NotificatonsList = (props) => {
   }, []);
   return (
     <div className="card  shadow p-3 mb-5 bg-white rounded">
-      <div
-        className="card-header"
-        style={{ display: "flex", justifyContent: "space-between" }}
-      >
+      <div className="card-header d-flex justify-content-between">
         <h4 className="my-auto">Notification</h4>
         <button className="btn btn-primary btn-sm" {...props}>
           Add

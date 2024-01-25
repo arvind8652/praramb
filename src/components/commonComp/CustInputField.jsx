@@ -11,6 +11,7 @@ const CustInputField = (props) => {
         type={type}
         placeholder={placeholder || label}
         name={name}
+        {...props}
       />
     </Form.Group>
   );

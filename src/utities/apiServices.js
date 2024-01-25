@@ -1,28 +1,6 @@
 import { BASEURL } from "./constants";
 
 export const get = async (url) => {
-  //   const resp = await fetch(`${BASEURL}${url}`, {
-  //     mode: "no-cors",
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //       accept: "*/*",
-  //     },
-  //   });
-  //   const result = await resp.json();
-  //   return result;
-
-  //   fetch(`https://jsonplaceholder.typicode.com/todos/1`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       return response.json(); // or response.text(), etc.
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-
   return fetch(`${BASEURL}${url}`)
     .then((response) => {
       if (!response.ok) {
@@ -36,5 +14,30 @@ export const get = async (url) => {
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
+    });
+};
+
+export const post = async (url, postData) => {
+  return fetch(`${BASEURL}${url}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json", // Set the content type based on your API requirements
+      // Add any other headers if needed
+    },
+    body: JSON.stringify(postData), // Convert the data to JSON format
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json(); // Assuming the response is in JSON format
+    })
+    .then((data) => {
+      // Handle the successful response data here
+      console.log("Response data:", data);
+    })
+    .catch((error) => {
+      // Handle errors here
+      console.error("Error:", error);
     });
 };

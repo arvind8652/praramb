@@ -3,7 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import { CUSTOMER_FORM } from "../../utities/constants";
 
 const CustModal = (props) => {
-  const { show, onHide, title = "NO Title", children, modalFor } = props;
+  const {
+    show,
+    onHide,
+    title = "NO Title",
+    children,
+    modalFor,
+    onHandleSubmit = () => {},
+  } = props;
   return (
     <Modal
       show={show}
@@ -18,9 +25,14 @@ const CustModal = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
-      <Modal.Footer>
-        <Button onClick={onHide}>Close</Button>
-      </Modal.Footer>
+      {/* <Modal.Footer>
+        <Button type="submit" onClick={onHandleSubmit}>
+          Submit
+        </Button>
+        <Button variant="warning" onClick={onHide}>
+          Close
+        </Button>
+      </Modal.Footer> */}
     </Modal>
   );
 };
