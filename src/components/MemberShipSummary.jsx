@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { get } from "../../utities/apiServices";
-import CustCard from "../commonComp/CustCard";
+import { get } from "../utities/apiServices";
+import CustCard from "./commonComp/CustCard";
 import {
   faIndianRupee,
   faPersonWalking,
