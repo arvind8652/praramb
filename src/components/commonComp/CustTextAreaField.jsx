@@ -2,16 +2,20 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 const CustTextAreaField = (props) => {
-  const { label, placeholder, type, name } = props;
+  const { label, placeholder, type, name, error } = props;
   return (
     <Form.Group className="card p-2 shadow-sm bg-white rounded">
       <Form.Label>{label}</Form.Label>
-      <textarea
-        className="form-control bg-light"
+      <Form.Control
+        className="bg-light"
+        type={type}
         placeholder={placeholder || label}
         name={name}
+        as="textarea"
         rows="3"
-      ></textarea>
+        {...props}
+      />
+      <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
     </Form.Group>
   );
 };

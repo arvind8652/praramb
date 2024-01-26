@@ -42,7 +42,7 @@ const CustomersList = (props) => {
           <tbody>
             {data?.map((val) => {
               return (
-                <tr>
+                <tr key={val.id}>
                   <th scope="row">{val.id}</th>
                   <td>{`${val.firstName} ${val.lastName}`}</td>
                   <td>{val.status}</td>
