@@ -9,6 +9,11 @@ import {
   customerFormInitialData,
   customerFormSchema,
 } from "../../utities/utilities";
+import {
+  GENDER_OPTION,
+  ROLE_OPTION,
+  STATUS_OPTION,
+} from "../../utities/constants";
 
 const CustomerForm = () => {
   const { Formik } = formik;
@@ -89,9 +94,9 @@ const CustomerForm = () => {
               />
             </Col>
             <Col md="4" className="mb-3">
-              <CustInputField
+              <CustSelectField
+                option={ROLE_OPTION}
                 label={"Role"}
-                type={"text"}
                 name={"role"}
                 onChange={handleChange}
                 value={values.role}
@@ -126,6 +131,7 @@ const CustomerForm = () => {
             </Col>
             <Col md="4" className="mb-3">
               <CustSelectField
+                option={STATUS_OPTION}
                 name={"status"}
                 label={"Status"}
                 onChange={handleChange}
@@ -148,9 +154,9 @@ const CustomerForm = () => {
               />
             </Col>
             <Col md="4" className="mb-3">
-              <CustInputField
+              <CustSelectField
+                option={GENDER_OPTION}
                 label={"Gender"}
-                type={"text"}
                 name={"gender"}
                 onChange={handleChange}
                 value={values.gender}

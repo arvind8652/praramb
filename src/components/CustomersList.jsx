@@ -49,17 +49,23 @@ const CustomersList = (props) => {
                   <td>{val.endDate}</td>
                   <td>
                     {val.gender === "male" ? (
-                      <FontAwesomeIcon
-                        icon={faPerson}
-                        size="2x"
-                        style={{ color: "#74C0FC" }}
-                      />
+                      <>
+                        <FontAwesomeIcon
+                          icon={faPerson}
+                          size="2x"
+                          style={{ color: "#74C0FC" }}
+                        />
+                        {" Male"}
+                      </>
                     ) : (
-                      <FontAwesomeIcon
-                        icon={faPersonDress}
-                        style={{ color: "#cc28c7" }}
-                        size="2x"
-                      />
+                      <>
+                        <FontAwesomeIcon
+                          icon={faPersonDress}
+                          style={{ color: "#cc28c7" }}
+                          size="2x"
+                        />
+                        {" Female"}
+                      </>
                     )}
                   </td>
                   <td>
