@@ -6,7 +6,7 @@ const NotificatonsList = (props) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const getNotificationsList = async () => {
-      const val = await get("notificationsList");
+      const val = await get("notifications");
       setData(val?.data);
     };
     getNotificationsList();

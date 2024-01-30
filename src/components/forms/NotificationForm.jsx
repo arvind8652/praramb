@@ -8,13 +8,21 @@ import {
   notificationFormInitialData,
   notificationFormSchema,
 } from "../../utities/utilities";
+import { post } from "../../utities/apiServices";
 
 const NotificationForm = () => {
   const { Formik } = formik;
 
-  // const handlePostApiForNotification = async () => {
-  //   console.log("filled data----", notificationForm);
-  // };
+  const handlePostApiForNotification = async (data) => {
+    try {
+      const resp = await post("notifications/add", data);
+      const res = resp.json();
+      return true;
+    } catch (error) {
+      console.log("error-------", error.message);
+      return false;
+    }
+  };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -25,12 +33,16 @@ const NotificationForm = () => {
   return (
     <Formik
       validationSchema={notificationFormSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          // setSubmitting(false);
-          setSubmitting(true);
-        }, 400);
+      onSubmit={async (values, { setSubmitting }) => {
+        const response = await handlePostApiForNotification(values);
+        response ? setSubmitting(true) : setSubmitting(false);
+
+        // setTimeout(() => {
+        //   handlePostApiForNotification(values);
+        //   alert(JSON.stringify(values, null, 2));
+        //   // setSubmitting(false);
+        //   setSubmitting(true);
+        // }, 400);
       }}
       initialValues={notificationFormInitialData}
     >

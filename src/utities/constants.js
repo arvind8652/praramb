@@ -1,6 +1,7 @@
 export const CUSTOMER_FORM = "customer_Form";
 export const NOTIFICATION_FORM = "notification_Form";
-export const BASEURL = "http://localhost:5001/";
+// export const BASEURL = "http://localhost:5001/";   //it is used for mockoon api
+export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database
 
 export const STATUS_OPTION = [
   { label: "Active", value: "active" },

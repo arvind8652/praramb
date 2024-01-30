@@ -1,6 +1,15 @@
 const router = require("express").Router();
 let notificationData = require("../models/notifications.model");
 
+router.route("/").get(async (req, res) => {
+  try {
+    const resp = await notificationData.find();
+    res.status(200).json({ statusMsg: "success", data: resp });
+  } catch (err) {
+    res.status(400).json({ statusMsg: "error", data: err.message });
+  }
+});
+
 router.route("/add").post((req, res) => {
   const title = req.body.title;
   const type = req.body.type;
@@ -14,8 +23,15 @@ router.route("/add").post((req, res) => {
 
   newNotification
     .save()
-    .then(() => res.json("New Notification Data added!"))
-    .catch((err) => res.status(400).json(`Error:${err}`));
+    .then(() =>
+      res.json({
+        statusMsg: "success",
+        data: "notification added successfully",
+      })
+    )
+    .catch((err) =>
+      res.status(400).json({ statusMsg: "error", data: err.message })
+    );
 });
 
 module.exports = router;
