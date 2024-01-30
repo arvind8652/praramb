@@ -22,9 +22,9 @@ const dbUrl = process.env.ATLAS_URL;
 const connectionParams = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  dbName: "praramb",
 };
 
-console.log("dbUrl--------", dbUrl);
 mongoose
   .connect(dbUrl, connectionParams)
   .then(() => {
@@ -43,6 +43,8 @@ mongoose
 // app.use("/users", usersRouter);
 // app.use("/userData", userDataRouter);
 // app.use("/expDetail", expDetailRouter);
+const notificationsRouter = require("./routes/notifications");
+app.use("/notifications", notificationsRouter);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
