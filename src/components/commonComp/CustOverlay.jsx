@@ -1,4 +1,5 @@
 import {
+  faClose,
   faEllipsisVertical,
   faEye,
   faIndianRupee,
@@ -6,14 +7,19 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Overlay from "react-bootstrap/Overlay";
 
-const CustOverLay = () => {
+const CustOverLay = (props) => {
+  const { handleClick, data } = props;
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
+  const btnClicked = (eventName) => {
+    handleClick(eventName, data);
+    setShow(false);
+  };
   return (
     <>
       <FontAwesomeIcon
@@ -44,14 +50,26 @@ const CustOverLay = () => {
             }}
           >
             <div className="card  shadow p-3 mb-5 bg-white rounded">
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item list-group-item-action">
+              <ul
+                className="list-group list-group-flush"
+                style={{ cursor: "pointer" }}
+              >
+                <li
+                  className="list-group-item list-group-item-action"
+                  onClick={() => btnClicked("view")}
+                >
                   <FontAwesomeIcon icon={faEye} size="sm" /> View
                 </li>
-                <li className="list-group-item list-group-item-action">
+                <li
+                  className="list-group-item list-group-item-action"
+                  onClick={() => btnClicked("edit")}
+                >
                   <FontAwesomeIcon icon={faPencil} size="sm" /> Edit
                 </li>
-                <li className="list-group-item list-group-item-action">
+                <li
+                  className="list-group-item list-group-item-action"
+                  onClick={() => btnClicked("delete")}
+                >
                   <FontAwesomeIcon icon={faTrash} size="sm" /> Delete
                 </li>
               </ul>

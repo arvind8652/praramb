@@ -8,3 +8,9 @@ export const notifications = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const notificationSingleData = atom({
+  key: "notificationSingleData",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});
