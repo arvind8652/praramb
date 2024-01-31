@@ -35,7 +35,11 @@ const Dashboard = () => {
         show={showModal}
         onHide={() => setShowModal(false)}
         children={
-          modalFor === CUSTOMER_FORM ? <CustomerForm /> : <NotificationForm />
+          modalFor === CUSTOMER_FORM ? (
+            <CustomerForm setShowModal={setShowModal} />
+          ) : (
+            <NotificationForm setShowModal={setShowModal} />
+          )
         }
         modalFor={modalFor}
         title={modalFor === CUSTOMER_FORM ? "Customer Form" : "Notification"}

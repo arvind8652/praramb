@@ -8,15 +8,21 @@ import {
   notificationFormInitialData,
   notificationFormSchema,
 } from "../../utities/utilities";
-import { post } from "../../utities/apiServices";
+import { get, post } from "../../utities/apiServices";
+import useSelector from "../../store/selector";
+import { atomNameConst } from "../../utities/constants";
 
-const NotificationForm = () => {
+const NotificationForm = (props) => {
+  const { setShowModal } = props;
   const { Formik } = formik;
+  const { setRecoilVal } = useSelector();
 
   const handlePostApiForNotification = async (data) => {
     try {
       const resp = await post("notifications/add", data);
-      const res = resp.json();
+      const val = await get("notifications");
+      setRecoilVal(atomNameConst.NOTIFICATIONS, val?.data);
+      setShowModal(false);
       return true;
     } catch (error) {
       console.log("error-------", error.message);

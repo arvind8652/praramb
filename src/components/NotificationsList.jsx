@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import CustOverLay from "./commonComp/CustOverlay";
 import { get } from "../utities/apiServices";
+import useSelector from "../store/selector";
+import { atomNameConst } from "../utities/constants";
 
 const NotificatonsList = (props) => {
-  const [data, setData] = useState([]);
+  const { getRecoilVal, setRecoilVal } = useSelector();
+  // const [data, setData] = useState([]);
   useEffect(() => {
     const getNotificationsList = async () => {
       const val = await get("notifications");
-      setData(val?.data);
+      setRecoilVal(atomNameConst.NOTIFICATIONS, val?.data);
+      // setData(val?.data);
     };
     getNotificationsList();
   }, []);
@@ -20,7 +24,7 @@ const NotificatonsList = (props) => {
         </button>
       </div>
       <ul className="list-group list-group-flush">
-        {data?.map((val) => {
+        {getRecoilVal(atomNameConst.NOTIFICATIONS).map((val) => {
           return (
             <li
               key={val.id}

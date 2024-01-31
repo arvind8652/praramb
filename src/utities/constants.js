@@ -3,6 +3,10 @@ export const NOTIFICATION_FORM = "notification_Form";
 // export const BASEURL = "http://localhost:5001/";   //it is used for mockoon api
 export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database
 
+export const atomNameConst = {
+  NOTIFICATIONS: "notifications",
+};
+
 export const STATUS_OPTION = [
   { label: "Active", value: "active" },
   { label: "In Active", value: "inActive" },

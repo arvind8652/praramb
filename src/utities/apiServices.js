@@ -35,6 +35,7 @@ export const post = async (url, postData) => {
     .then((data) => {
       // Handle the successful response data here
       console.log("Response data:", data);
+      return data;
     })
     .catch((error) => {
       // Handle errors here
