@@ -8,18 +8,28 @@ import {
   notificationFormInitialData,
   notificationFormSchema,
 } from "../../utities/utilities";
-import { get, post } from "../../utities/apiServices";
+import { get, post, put } from "../../utities/apiServices";
 import useSelector from "../../store/selector";
 import { atomNameConst } from "../../utities/constants";
 
 const NotificationForm = (props) => {
-  const { setShowModal } = props;
+  const { setShowModal, formType } = props;
   const { Formik } = formik;
-  const { setRecoilVal } = useSelector();
+  const { setRecoilVal, getRecoilVal } = useSelector();
+  const notificationDataForEdit = getRecoilVal(
+    atomNameConst.NOTIFICATIONSINGLEDATA
+  );
 
   const handlePostApiForNotification = async (data) => {
     try {
-      const resp = await post("notifications/add", data);
+      // const resp = await post("notifications/add", data);
+      const resp =
+        formType === "edit"
+          ? await put(
+              `notifications/edit/${notificationDataForEdit?._id}`,
+              data
+            )
+          : await post("notifications/add", data);
       const val = await get("notifications");
       setRecoilVal(atomNameConst.NOTIFICATIONS, val?.data);
       setShowModal(false);
@@ -50,7 +60,11 @@ const NotificationForm = (props) => {
         //   setSubmitting(true);
         // }, 400);
       }}
-      initialValues={notificationFormInitialData}
+      initialValues={
+        formType === "edit"
+          ? notificationDataForEdit
+          : notificationFormInitialData
+      }
     >
       {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
@@ -61,7 +75,7 @@ const NotificationForm = (props) => {
                 type={"text"}
                 name={"title"}
                 onChange={handleChange}
-                value={values.title}
+                value={values?.title}
                 error={errors.title}
                 isValid={touched.title && !errors.title}
                 isInvalid={!!errors.title}
@@ -73,7 +87,7 @@ const NotificationForm = (props) => {
                 type={"text"}
                 name={"type"}
                 onChange={handleChange}
-                value={values.type}
+                value={values?.type}
                 error={errors.type}
                 isValid={touched.type && !errors.type}
                 isInvalid={!!errors.type}
@@ -84,7 +98,7 @@ const NotificationForm = (props) => {
                 label={"Description"}
                 name={"description"}
                 onChange={handleChange}
-                value={values.description}
+                value={values?.description}
                 error={errors.description}
                 isValid={touched.description && !errors.description}
                 isInvalid={!!errors.description}

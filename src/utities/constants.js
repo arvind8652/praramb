@@ -1,7 +1,10 @@
 export const CUSTOMER_FORM = "customer_Form";
 export const NOTIFICATION_FORM = "notification_Form";
 export const CUSTOMER_VIEW = "customer_View";
+export const CUSTOMER_EDIT = "customer_Edit";
 export const NOTIFICATION_VIEW = "notification_view";
+export const NOTIFICATION_EDIT = "notification_Edit";
+export const NOTIFICATION_DELETE = "notification_Delete";
 
 // export const BASEURL = "http://localhost:5001/";   //it is used for mockoon api
 export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database

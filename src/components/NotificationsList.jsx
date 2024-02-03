@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import CustOverLay from "./commonComp/CustOverlay";
 import { get } from "../utities/apiServices";
 import useSelector from "../store/selector";
-import { NOTIFICATION_VIEW, atomNameConst } from "../utities/constants";
+import {
+  NOTIFICATION_DELETE,
+  NOTIFICATION_EDIT,
+  NOTIFICATION_VIEW,
+  atomNameConst,
+} from "../utities/constants";
 
 const NotificatonsList = (props) => {
   const { setModalFor, setShowModal } = props;
@@ -22,6 +27,20 @@ const NotificatonsList = (props) => {
       case "view":
         {
           setModalFor(NOTIFICATION_VIEW);
+          setShowModal(true);
+          setRecoilVal(atomNameConst.NOTIFICATIONSINGLEDATA, data);
+        }
+        break;
+      case "edit":
+        {
+          setModalFor(NOTIFICATION_EDIT);
+          setShowModal(true);
+          setRecoilVal(atomNameConst.NOTIFICATIONSINGLEDATA, data);
+        }
+        break;
+      case "delete":
+        {
+          setModalFor(NOTIFICATION_DELETE);
           setShowModal(true);
           setRecoilVal(atomNameConst.NOTIFICATIONSINGLEDATA, data);
         }

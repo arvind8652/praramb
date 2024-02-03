@@ -5,6 +5,8 @@ import CustModal from "../components/commonComp/CustModal";
 import CustomerForm from "../components/forms/CustomerForm";
 import {
   CUSTOMER_FORM,
+  NOTIFICATION_DELETE,
+  NOTIFICATION_EDIT,
   NOTIFICATION_FORM,
   NOTIFICATION_VIEW,
   atomNameConst,
@@ -13,6 +15,7 @@ import NotificationForm from "../components/forms/NotificationForm";
 import MemberShipSummary from "../components/MemberShipSummary";
 import NotificationView from "../components/forms/NotificationView";
 import useSelector from "../store/selector";
+import NotificationDelete from "../components/forms/NotificationDelete";
 
 const Dashboard = () => {
   const { setRecoilVal } = useSelector();
@@ -24,7 +27,13 @@ const Dashboard = () => {
       case CUSTOMER_FORM:
         return <CustomerForm setShowModal={setShowModal} />;
       case NOTIFICATION_FORM:
-        return <NotificationForm setShowModal={setShowModal} />;
+        return <NotificationForm setShowModal={setShowModal} formType="new" />;
+      case NOTIFICATION_EDIT:
+        return <NotificationForm setShowModal={setShowModal} formType="edit" />;
+      case NOTIFICATION_DELETE:
+        return (
+          <NotificationDelete setShowModal={setShowModal} formType="delete" />
+        );
       case NOTIFICATION_VIEW:
         return <NotificationView setShowModal={setShowModal} />;
       default:
@@ -40,6 +49,10 @@ const Dashboard = () => {
         return "Notification Form";
       case NOTIFICATION_VIEW:
         return "Notification View";
+      case NOTIFICATION_EDIT:
+        return "Notification Edit";
+      case NOTIFICATION_DELETE:
+        return "Notification Delete";
       default:
         break;
     }

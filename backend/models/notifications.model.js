@@ -5,6 +5,7 @@ const notificationSchema = new Schema({
   type: { type: String, required: true, trim: true },
   description: { type: String, required: true, trim: true },
   createdAt: { type: Date, default: Date.now() },
+  updatedAt: { type: Date, default: Date.now() },
 });
 
 const Notifications = mongoose.model("Notifications", notificationSchema);

@@ -42,3 +42,39 @@ export const post = async (url, postData) => {
       console.error("Error:", error);
     });
 };
+
+export const put = async (url, putData) => {
+  // Send a PUT request to update the task
+  fetch(`${BASEURL}${url}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(putData),
+  })
+    .then((response) => response.json())
+    .then((updatedTask) => {
+      console.log("Task updated successfully:", updatedTask);
+      return updatedTask;
+    })
+    .catch((error) => {
+      console.error("Error updating task:", error);
+    });
+};
+
+export const deleted = (url) => {
+  // Send a DELETE request to delete the task
+  fetch(`${BASEURL}${url}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.ok) {
+        return "deleted success";
+      } else {
+        console.error("Error deleting task:", response.status);
+      }
+    })
+    .catch((error) => {
+      console.error("Error deleting task:", error);
+    });
+};
