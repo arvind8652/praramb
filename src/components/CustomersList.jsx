@@ -9,21 +9,59 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Example from "./commonComp/CustOverlay";
 import { get } from "../utities/apiServices";
+import {
+  CUSTOMER_DELETE,
+  CUSTOMER_EDIT,
+  CUSTOMER_VIEW,
+  atomNameConst,
+} from "../utities/constants";
+import useSelector from "../store/selector";
+import CustOverLay from "./commonComp/CustOverlay";
 
 const CustomersList = (props) => {
-  const [data, setData] = useState([]);
+  const { setModalFor, setShowModal } = props;
+  const { getRecoilVal, setRecoilVal } = useSelector();
   useEffect(() => {
     const getCustomersList = async () => {
-      const val = await get("customersList");
-      setData(val?.data);
+      const val = await get("customers");
+      setRecoilVal(atomNameConst.CUSTOMERS, val?.data);
     };
     getCustomersList();
   }, []);
+
+  const handleClick = (clickEvent, data) => {
+    switch (clickEvent) {
+      case "view":
+        {
+          setModalFor(CUSTOMER_VIEW);
+          setShowModal(true);
+          setRecoilVal(atomNameConst.CUSTOMERSINGLEDATA, data);
+        }
+        break;
+      case "edit":
+        {
+          setModalFor(CUSTOMER_EDIT);
+          setShowModal(true);
+          setRecoilVal(atomNameConst.CUSTOMERSINGLEDATA, data);
+        }
+        break;
+      case "delete":
+        {
+          setModalFor(CUSTOMER_DELETE);
+          setShowModal(true);
+          setRecoilVal(atomNameConst.CUSTOMERSINGLEDATA, data);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="card  shadow p-3 mb-5 bg-white rounded">
       <div className="card-header d-flex justify-content-between">
         <h4 className="my-auto">Customers</h4>
-        <button className="btn btn-primary btn-sm" {...props}>
+        <button className="btn btn-primary btn-sm" onClick={props.onClick}>
           Add
         </button>
       </div>
@@ -40,7 +78,7 @@ const CustomersList = (props) => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((val) => {
+            {getRecoilVal(atomNameConst.CUSTOMERS)?.map((val) => {
               return (
                 <tr key={val.id}>
                   <th scope="row">{val.id}</th>
@@ -69,7 +107,7 @@ const CustomersList = (props) => {
                     )}
                   </td>
                   <td>
-                    <Example />
+                    <CustOverLay handleClick={handleClick} data={val} />
                   </td>
                 </tr>
               );

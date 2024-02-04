@@ -6,25 +6,23 @@ import { deleted, get, put } from "../../utities/apiServices";
 import useSelector from "../../store/selector";
 import { atomNameConst } from "../../utities/constants";
 
-const NotificationDelete = (props) => {
+const CustomerDelete = (props) => {
   const { setShowModal } = props;
   const { Formik } = formik;
   const { setRecoilVal, getRecoilVal } = useSelector();
-  const notificationDataForDelete = getRecoilVal(
-    atomNameConst.NOTIFICATIONSINGLEDATA
-  );
+  const customerDataForDelete = getRecoilVal(atomNameConst.CUSTOMERSINGLEDATA);
 
   const handleCancel = () => {
     setShowModal(false);
   };
 
-  const handleDeleteApiForNotification = async () => {
+  const handleDeleteApiForCustomer = async () => {
     try {
       const resp = await deleted(
-        `notifications/delete/${notificationDataForDelete?._id}`
+        `customers/delete/${customerDataForDelete?._id}`
       );
-      const val = await get("notifications");
-      setRecoilVal(atomNameConst.NOTIFICATIONS, val?.data);
+      const val = await get("customers");
+      setRecoilVal(atomNameConst.CUSTOMERS, val?.data);
       setShowModal(false);
       return true;
     } catch (error) {
@@ -39,16 +37,16 @@ const NotificationDelete = (props) => {
         <Form noValidate>
           <Row>
             <Col md="12" className="mb-3">
-              Are you sure, to delete this notification whose id:
-              <b>{`${notificationDataForDelete?._id}`}</b> and title:{" "}
-              <b>{`${notificationDataForDelete?.title}`}</b>
+              Are you sure, to delete this customer whose id:
+              <b>{`${customerDataForDelete?._id}`}</b> and Name:{" "}
+              <b>{`${customerDataForDelete?.firstName} ${customerDataForDelete?.lastName}`}</b>
             </Col>
             <hr />
             <Col md="12" className=" d-flex justify-content-center">
               <Button
                 className="mx-1"
                 type="button"
-                onClick={handleDeleteApiForNotification}
+                onClick={handleDeleteApiForCustomer}
                 variant="danger"
               >
                 Delete
@@ -64,4 +62,4 @@ const NotificationDelete = (props) => {
   );
 };
 
-export default NotificationDelete;
+export default CustomerDelete;

@@ -4,7 +4,10 @@ import CustomersList from "../components/CustomersList";
 import CustModal from "../components/commonComp/CustModal";
 import CustomerForm from "../components/forms/CustomerForm";
 import {
+  CUSTOMER_DELETE,
+  CUSTOMER_EDIT,
   CUSTOMER_FORM,
+  CUSTOMER_VIEW,
   NOTIFICATION_DELETE,
   NOTIFICATION_EDIT,
   NOTIFICATION_FORM,
@@ -16,6 +19,8 @@ import MemberShipSummary from "../components/MemberShipSummary";
 import NotificationView from "../components/forms/NotificationView";
 import useSelector from "../store/selector";
 import NotificationDelete from "../components/forms/NotificationDelete";
+import CustomerView from "../components/forms/CustomerView";
+import CustomerDelete from "../components/forms/CustomerDelete";
 
 const Dashboard = () => {
   const { setRecoilVal } = useSelector();
@@ -25,7 +30,14 @@ const Dashboard = () => {
   const LoadParticularComp = () => {
     switch (modalFor) {
       case CUSTOMER_FORM:
-        return <CustomerForm setShowModal={setShowModal} />;
+        return <CustomerForm setShowModal={setShowModal} formType="new" />;
+      case CUSTOMER_EDIT:
+        return <CustomerForm setShowModal={setShowModal} formType="edit" />;
+      case CUSTOMER_VIEW:
+        return <CustomerView setShowModal={setShowModal} formType="view" />;
+      case CUSTOMER_DELETE:
+        return <CustomerDelete setShowModal={setShowModal} formType="delete" />;
+
       case NOTIFICATION_FORM:
         return <NotificationForm setShowModal={setShowModal} formType="new" />;
       case NOTIFICATION_EDIT:
@@ -35,7 +47,7 @@ const Dashboard = () => {
           <NotificationDelete setShowModal={setShowModal} formType="delete" />
         );
       case NOTIFICATION_VIEW:
-        return <NotificationView setShowModal={setShowModal} />;
+        return <NotificationView setShowModal={setShowModal} formType="view" />;
       default:
         return <NotificationForm setShowModal={setShowModal} />;
     }
@@ -45,6 +57,12 @@ const Dashboard = () => {
     switch (modalFor) {
       case CUSTOMER_FORM:
         return "Customer Form";
+      case CUSTOMER_EDIT:
+        return "Customer Edit";
+      case CUSTOMER_VIEW:
+        return "Customer View";
+      case CUSTOMER_DELETE:
+        return "Customer Delete";
       case NOTIFICATION_FORM:
         return "Notification Form";
       case NOTIFICATION_VIEW:

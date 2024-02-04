@@ -17,9 +17,9 @@ const DataWithLabel = (props) => {
   );
 };
 
-const NotificationView = () => {
+const CustomerView = () => {
   const { getRecoilVal } = useSelector();
-  const data = getRecoilVal(atomNameConst.NOTIFICATIONSINGLEDATA);
+  const data = getRecoilVal(atomNameConst.CUSTOMERSINGLEDATA);
   return (
     <>
       <p className="d-flex justify-content-end m-0 p-0 pb-2">
@@ -36,16 +36,22 @@ const NotificationView = () => {
         />
       </p>
       <Row>
-        <DataWithLabel label={"Title"} data={data?.title} colMd="6" />
-        <DataWithLabel label={"Type"} data={data?.type} colMd="6" />
-        <DataWithLabel
-          label={"Description"}
-          data={data?.description}
-          colMd="12"
-        />
+        <DataWithLabel label={"First Name"} data={data?.firstName} colMd="4" />
+        <DataWithLabel label={"Last Name"} data={data?.lastName} colMd="4" />
+        <DataWithLabel label={"DOB"} data={data?.dob} colMd="4" />
+        <DataWithLabel label={"Mobile No"} data={data?.mobileNo} colMd="4" />
+        <DataWithLabel label={"Email"} data={data?.email} colMd="4" />
+        <DataWithLabel label={"Role"} data={data?.role} colMd="4" />
+        <DataWithLabel label={"Start Date"} data={data?.startDate} colMd="4" />
+        <DataWithLabel label={"End Date"} data={data?.endDate} colMd="4" />
+        <DataWithLabel label={"Status"} data={data?.status} colMd="4" />
+        <DataWithLabel label={"Amount"} data={data?.amount} colMd="4" />
+        <DataWithLabel label={"Gender"} data={data?.gender} colMd="4" />
+
+        <DataWithLabel label={"Comment"} data={data?.comment} colMd="12" />
       </Row>
     </>
   );
 };
 
-export default NotificationView;
+export default CustomerView;

@@ -14,3 +14,15 @@ export const notificationSingleData = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const customers = atom({
+  key: "customers",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const customerSingleData = atom({
+  key: "customerSingleData",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});

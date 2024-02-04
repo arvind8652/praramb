@@ -13,22 +13,43 @@ import {
   GENDER_OPTION,
   ROLE_OPTION,
   STATUS_OPTION,
+  atomNameConst,
 } from "../../utities/constants";
+import useSelector from "../../store/selector";
+import { get, post, put } from "../../utities/apiServices";
 
-const CustomerForm = () => {
+const CustomerForm = (props) => {
+  const { setShowModal, formType } = props;
   const { Formik } = formik;
+  const { setRecoilVal, getRecoilVal } = useSelector();
+  const customerDataForEdit = getRecoilVal(atomNameConst.CUSTOMERSINGLEDATA);
+
+  const handlePostApiForCustomer = async (data) => {
+    try {
+      const resp =
+        formType === "edit"
+          ? await put(`customers/edit/${customerDataForEdit?._id}`, data)
+          : await post("customers/add", data);
+      const val = await get("customers");
+      setRecoilVal(atomNameConst.CUSTOMERS, val?.data);
+      setShowModal(false);
+      return true;
+    } catch (error) {
+      console.log("error-------", error.message);
+      return false;
+    }
+  };
 
   return (
     <Formik
       validationSchema={customerFormSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-          // setSubmitting(true);
-        }, 400);
+      onSubmit={async (values, { setSubmitting }) => {
+        const response = await handlePostApiForCustomer(values);
+        response ? setSubmitting(true) : setSubmitting(false);
       }}
-      initialValues={customerFormInitialData}
+      initialValues={
+        formType === "edit" ? customerDataForEdit : customerFormInitialData
+      }
     >
       {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
@@ -39,7 +60,7 @@ const CustomerForm = () => {
                 type={"text"}
                 name={"firstName"}
                 onChange={handleChange}
-                value={values.firstName}
+                value={values?.firstName}
                 error={errors.firstName}
                 isValid={touched.firstName && !errors.firstName}
                 isInvalid={!!errors.firstName}
@@ -51,7 +72,7 @@ const CustomerForm = () => {
                 type={"text"}
                 name={"lastName"}
                 onChange={handleChange}
-                value={values.lastName}
+                value={values?.lastName}
                 error={errors.lastName}
                 isValid={touched.lastName && !errors.lastName}
                 isInvalid={!!errors.lastName}
@@ -63,7 +84,7 @@ const CustomerForm = () => {
                 type={"date"}
                 name={"dob"}
                 onChange={handleChange}
-                value={values.dob}
+                value={values?.dob}
                 error={errors.dob}
                 isValid={touched.dob && !errors.dob}
                 isInvalid={!!errors.dob}
@@ -75,7 +96,7 @@ const CustomerForm = () => {
                 type={"text"}
                 name={"mobileNo"}
                 onChange={handleChange}
-                value={values.mobileNo}
+                value={values?.mobileNo}
                 error={errors.mobileNo}
                 isValid={touched.mobileNo && !errors.mobileNo}
                 isInvalid={!!errors.mobileNo}
@@ -87,7 +108,7 @@ const CustomerForm = () => {
                 type={"email"}
                 name={"email"}
                 onChange={handleChange}
-                value={values.email}
+                value={values?.email}
                 error={errors.email}
                 isValid={touched.email && !errors.email}
                 isInvalid={!!errors.email}
@@ -99,7 +120,7 @@ const CustomerForm = () => {
                 label={"Role"}
                 name={"role"}
                 onChange={handleChange}
-                value={values.role}
+                value={values?.role}
                 error={errors.role}
                 isValid={touched.role && !errors.role}
                 isInvalid={!!errors.role}
@@ -111,7 +132,7 @@ const CustomerForm = () => {
                 type={"date"}
                 name={"startDate"}
                 onChange={handleChange}
-                value={values.startDate}
+                value={values?.startDate}
                 error={errors.startDate}
                 isValid={touched.startDate && !errors.startDate}
                 isInvalid={!!errors.startDate}
@@ -123,7 +144,7 @@ const CustomerForm = () => {
                 type={"date"}
                 name={"endDate"}
                 onChange={handleChange}
-                value={values.endDate}
+                value={values?.endDate}
                 error={errors.endDate}
                 isValid={touched.endDate && !errors.endDate}
                 isInvalid={!!errors.endDate}
@@ -135,7 +156,7 @@ const CustomerForm = () => {
                 name={"status"}
                 label={"Status"}
                 onChange={handleChange}
-                value={values.status}
+                value={values?.status}
                 error={errors.status}
                 isValid={touched.status && !errors.status}
                 isInvalid={!!errors.status}
@@ -147,7 +168,7 @@ const CustomerForm = () => {
                 type={"text"}
                 name={"amount"}
                 onChange={handleChange}
-                value={values.amount}
+                value={values?.amount}
                 error={errors.amount}
                 isValid={touched.amount && !errors.amount}
                 isInvalid={!!errors.amount}
@@ -159,7 +180,7 @@ const CustomerForm = () => {
                 label={"Gender"}
                 name={"gender"}
                 onChange={handleChange}
-                value={values.gender}
+                value={values?.gender}
                 error={errors.gender}
                 isValid={touched.gender && !errors.gender}
                 isInvalid={!!errors.gender}
@@ -171,7 +192,7 @@ const CustomerForm = () => {
                 label={"Comment"}
                 name={"comment"}
                 onChange={handleChange}
-                value={values.comment}
+                value={values?.comment}
                 error={errors.comment}
                 isValid={touched.comment && !errors.comment}
                 isInvalid={!!errors.comment}
