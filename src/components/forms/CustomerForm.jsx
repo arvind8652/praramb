@@ -31,7 +31,9 @@ const CustomerForm = (props) => {
           ? await put(`customers/edit/${customerDataForEdit?._id}`, data)
           : await post("customers/add", data);
       const val = await get("customers");
+      const summaryData = await get("customers/summary");
       setRecoilVal(atomNameConst.CUSTOMERS, val?.data);
+      setRecoilVal(atomNameConst.SUMMARY, summaryData?.data?.[0]);
       setShowModal(false);
       return true;
     } catch (error) {

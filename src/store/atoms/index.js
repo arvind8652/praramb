@@ -26,3 +26,9 @@ export const customerSingleData = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const summary = atom({
+  key: "summary",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});

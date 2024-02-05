@@ -34,7 +34,13 @@ const Dashboard = () => {
       case CUSTOMER_EDIT:
         return <CustomerForm setShowModal={setShowModal} formType="edit" />;
       case CUSTOMER_VIEW:
-        return <CustomerView setShowModal={setShowModal} formType="view" />;
+        return (
+          <CustomerView
+            setShowModal={setShowModal}
+            setModalFor={setModalFor}
+            formType="view"
+          />
+        );
       case CUSTOMER_DELETE:
         return <CustomerDelete setShowModal={setShowModal} formType="delete" />;
 
@@ -47,7 +53,13 @@ const Dashboard = () => {
           <NotificationDelete setShowModal={setShowModal} formType="delete" />
         );
       case NOTIFICATION_VIEW:
-        return <NotificationView setShowModal={setShowModal} formType="view" />;
+        return (
+          <NotificationView
+            setShowModal={setShowModal}
+            setModalFor={setModalFor}
+            formType="view"
+          />
+        );
       default:
         return <NotificationForm setShowModal={setShowModal} />;
     }
@@ -80,7 +92,7 @@ const Dashboard = () => {
     <div className="container  p-3">
       <MemberShipSummary />
       <div className="row">
-        <div className="col-8">
+        <div className="col-12 col-md-8">
           <CustomersList
             setShowModal={setShowModal}
             setModalFor={setModalFor}
@@ -90,7 +102,7 @@ const Dashboard = () => {
             }}
           />
         </div>
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <NotificationsList
             setShowModal={setShowModal}
             setModalFor={setModalFor}

@@ -10,6 +10,25 @@ router.route("/").get(async (req, res) => {
   }
 });
 
+router.route("/summary").get(async (req, res) => {
+  try {
+    // const resp = await customerData.find().select("-_id amount");
+    const resp = await customerData.aggregate([
+      {
+        $group: {
+          _id: "null",
+          totalAmount: { $sum: { $toDouble: "$amount" } },
+          totalCustomers: { $sum: 1 },
+          totalActiveCustomers: { $sum: 1 },
+        },
+      },
+    ]);
+    res.status(200).json({ statusMsg: "success", data: resp });
+  } catch (err) {
+    res.status(400).json({ statusMsg: "error", data: err.message });
+  }
+});
+
 router.route("/add").post((req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;

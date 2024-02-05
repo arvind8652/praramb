@@ -8,13 +8,15 @@ export const NOTIFICATION_EDIT = "notification_Edit";
 export const NOTIFICATION_DELETE = "notification_Delete";
 
 // export const BASEURL = "http://localhost:5001/";   //it is used for mockoon api
-export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database
+// export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database
+export const BASEURL = "http://192.168.0.109:5000/"; // it is used for same network testing
 
 export const atomNameConst = {
   NOTIFICATIONS: "notifications",
   CUSTOMERS: "customers",
   NOTIFICATIONSINGLEDATA: "notificationSingleData",
   CUSTOMERSINGLEDATA: "customerSingleData",
+  SUMMARY: "summary",
 };
 
 export const STATUS_OPTION = [

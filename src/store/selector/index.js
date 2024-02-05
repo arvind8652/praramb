@@ -4,6 +4,7 @@ import {
   customers,
   notificationSingleData,
   notifications,
+  summary,
 } from "../atoms";
 import { atomNameConst } from "../../utities/constants";
 
@@ -14,6 +15,7 @@ const useSelector = () => {
   const [customersVal, setCustomersVal] = useRecoilState(customers);
   const [customerSingleDataVal, setCustomerSingleDataVal] =
     useRecoilState(customerSingleData);
+  const [summaryVal, setSummaryVal] = useRecoilState(summary);
 
   const getRecoilVal = (atomName) => {
     switch (atomName) {
@@ -25,6 +27,8 @@ const useSelector = () => {
         return customersVal;
       case atomNameConst.CUSTOMERSINGLEDATA:
         return customerSingleDataVal;
+      case atomNameConst.SUMMARY:
+        return summaryVal;
       default:
         throw new Error(`Unknown atom name:${atomName}`);
     }
@@ -43,6 +47,9 @@ const useSelector = () => {
         break;
       case atomNameConst.CUSTOMERSINGLEDATA:
         setCustomerSingleDataVal(data);
+        break;
+      case atomNameConst.SUMMARY:
+        setSummaryVal(data);
         break;
       default:
         throw new Error(`Unknown atom name:${atomName}`);
