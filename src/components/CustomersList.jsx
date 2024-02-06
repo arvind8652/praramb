@@ -78,10 +78,11 @@ const CustomersList = (props) => {
             </tr>
           </thead>
           <tbody>
-            {getRecoilVal(atomNameConst.CUSTOMERS)?.map((val) => {
+            {getRecoilVal(atomNameConst.CUSTOMERS)?.map((val, index) => {
               return (
-                <tr key={val.id}>
-                  <th scope="row">{val.id}</th>
+                <tr key={val._id}>
+                  {/* <th scope="row">{val.id}</th> */}
+                  <td>{index + 1}</td>
                   <td>{`${val.firstName} ${val.lastName}`}</td>
                   <td>{val.status}</td>
                   <td>{val.endDate}</td>

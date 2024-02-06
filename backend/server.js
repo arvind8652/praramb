@@ -45,8 +45,10 @@ mongoose
 // app.use("/expDetail", expDetailRouter);
 const notificationsRouter = require("./routes/notifications");
 const customersRouter = require("./routes/customers");
+const adminRouter = require("./routes/admin");
 app.use("/notifications", notificationsRouter);
 app.use("/customers", customersRouter);
+app.use("/admin", adminRouter);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });

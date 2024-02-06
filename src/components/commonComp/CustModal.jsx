@@ -1,6 +1,5 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { CUSTOMER_FORM } from "../../utities/constants";
 
 const CustModal = (props) => {
   const {
@@ -10,7 +9,9 @@ const CustModal = (props) => {
     children,
     modalFor,
     onHandleSubmit = () => {},
+    defaultCloseBtn = true,
   } = props;
+
   return (
     <Modal
       show={show}
@@ -21,7 +22,7 @@ const CustModal = (props) => {
       backdrop="static"
       keyboard={false}
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton={defaultCloseBtn}>
         <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>

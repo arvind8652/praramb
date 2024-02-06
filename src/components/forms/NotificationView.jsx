@@ -37,7 +37,7 @@ const NotificationView = (props) => {
 
   return (
     <>
-      <p className="d-flex justify-content-end m-0 p-0 pb-2">
+      <div className="d-flex justify-content-end m-0 p-0 pb-2">
         <FontAwesomeIcon
           onClick={handleEditClick}
           icon={faPencil}
@@ -51,7 +51,7 @@ const NotificationView = (props) => {
           style={{ cursor: "pointer" }}
           title="delete"
         />
-      </p>
+      </div>
       <Row>
         <DataWithLabel label={"Title"} data={data?.title} colMd="6" />
         <DataWithLabel label={"Type"} data={data?.type} colMd="6" />

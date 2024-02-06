@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotificationsList from "../components/NotificationsList";
 import CustomersList from "../components/CustomersList";
 import CustModal from "../components/commonComp/CustModal";
@@ -8,6 +8,7 @@ import {
   CUSTOMER_EDIT,
   CUSTOMER_FORM,
   CUSTOMER_VIEW,
+  LOGIN_FORM,
   NOTIFICATION_DELETE,
   NOTIFICATION_EDIT,
   NOTIFICATION_FORM,
@@ -21,14 +22,27 @@ import useSelector from "../store/selector";
 import NotificationDelete from "../components/forms/NotificationDelete";
 import CustomerView from "../components/forms/CustomerView";
 import CustomerDelete from "../components/forms/CustomerDelete";
+import LoginForm from "../components/forms/LoginForm";
 
 const Dashboard = () => {
   const { setRecoilVal } = useSelector();
   const [showModal, setShowModal] = useState(false);
-  const [modalFor, setModalFor] = useState(CUSTOMER_FORM);
+  const [modalFor, setModalFor] = useState("");
+
+  useEffect(() => {
+    setShowModal(true);
+    setModalFor(LOGIN_FORM);
+
+    return () => {
+      setModalFor("");
+      setShowModal(false);
+    };
+  }, []);
 
   const LoadParticularComp = () => {
     switch (modalFor) {
+      case LOGIN_FORM:
+        return <LoginForm setShowModal={setShowModal} />;
       case CUSTOMER_FORM:
         return <CustomerForm setShowModal={setShowModal} formType="new" />;
       case CUSTOMER_EDIT:
@@ -67,6 +81,8 @@ const Dashboard = () => {
 
   const loadParticularTitle = () => {
     switch (modalFor) {
+      case LOGIN_FORM:
+        return "Login Form";
       case CUSTOMER_FORM:
         return "Customer Form";
       case CUSTOMER_EDIT:
@@ -125,6 +141,7 @@ const Dashboard = () => {
         children={<LoadParticularComp />}
         modalFor={modalFor}
         title={loadParticularTitle()}
+        defaultCloseBtn={modalFor === LOGIN_FORM ? true : true}
       />
     </div>
   );

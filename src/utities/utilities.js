@@ -39,3 +39,12 @@ export const notificationFormSchema = yup.object().shape({
   type: yup.string().required(),
   description: yup.string().required(),
 });
+
+export const loginFormInitialData = {
+  userName: "",
+  password: "",
+};
+export const loginFormSchema = yup.object().shape({
+  userName: yup.string().required(),
+  password: yup.string().required(),
+});

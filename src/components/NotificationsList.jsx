@@ -61,7 +61,7 @@ const NotificatonsList = (props) => {
         {getRecoilVal(atomNameConst.NOTIFICATIONS)?.map((val) => {
           return (
             <li
-              key={val.id}
+              key={val._id}
               className="list-group-item list-group-item-action d-flex justify-content-between"
             >
               {val.title}

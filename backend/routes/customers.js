@@ -30,18 +30,20 @@ router.route("/summary").get(async (req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const dob = req.body.dob;
-  const mobileNo = req.body.mobileNo;
-  const email = req.body.email;
-  const role = req.body.role;
-  const startDate = req.body.startDate;
-  const endDate = req.body.endDate;
-  const status = req.body.status;
-  const amount = req.body.amount;
-  const gender = req.body.gender;
-  const comment = req.body.comment;
+  const {
+    firstName,
+    lastName,
+    dob,
+    mobileNo,
+    email,
+    role,
+    startDate,
+    endDate,
+    status,
+    amount,
+    gender,
+    comment,
+  } = req.body;
 
   const newCustomer = new customerData({
     firstName,

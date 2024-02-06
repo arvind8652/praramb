@@ -37,7 +37,7 @@ const CustomerView = (props) => {
 
   return (
     <>
-      <p className="d-flex justify-content-end m-0 p-0 pb-2">
+      <div className="d-flex justify-content-end m-0 p-0 pb-2">
         <FontAwesomeIcon
           onClick={handleEditClick}
           icon={faPencil}
@@ -51,7 +51,7 @@ const CustomerView = (props) => {
           style={{ cursor: "pointer" }}
           title="delete"
         />
-      </p>
+      </div>
       <Row>
         <DataWithLabel label={"First Name"} data={data?.firstName} colMd="4" />
         <DataWithLabel label={"Last Name"} data={data?.lastName} colMd="4" />

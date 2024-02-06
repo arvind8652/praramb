@@ -8,7 +8,11 @@ const CustSelectField = (props) => {
       <Form.Label>{label}</Form.Label>
       <Form.Select {...props} className="bg-light">
         {option?.map((data) => {
-          return <option value={data.value}>{data.label}</option>;
+          return (
+            <option key={data.value} value={data.value}>
+              {data.label}
+            </option>
+          );
         })}
       </Form.Select>
 
