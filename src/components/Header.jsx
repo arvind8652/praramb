@@ -1,21 +1,33 @@
-import { faUserTie } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import useSelector from "../store/selector";
+import { LOGIN_FORM, atomNameConst } from "../utities/constants";
 
-function Header() {
+function Header(props) {
+  const { setModalFor, setShowModal } = props;
+  const { getRecoilVal, setRecoilVal } = useSelector();
+  const loginData = getRecoilVal(atomNameConst.LOGINDETAIL);
+
+  const handleLogout = () => {
+    try {
+      setRecoilVal(atomNameConst.LOGINDETAIL, null);
+      setShowModal(true);
+      setModalFor(LOGIN_FORM);
+    } catch (error) {}
+  };
   return (
     <>
       {["md"].map((expand) => (
         <Navbar
+          bg="primary"
+          data-bs-theme="dark"
           key={expand}
           expand={expand}
-          className="bg-body-tertiary mb-3 sticky-top"
+          className="bg-body-tertiary mb-3 sticky-top "
         >
           <Container fluid>
             <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
@@ -32,19 +44,20 @@ function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <NavDropdown
-                    title={<FontAwesomeIcon icon={faUserTie} size="2x" />}
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  {loginData && (
+                    <>
+                      <Navbar.Text className="mx-2">
+                        {`${loginData?.name} - ${loginData?.role}`}
+                      </Navbar.Text>
+                      <Nav.Link>
+                        <FontAwesomeIcon
+                          icon={faRightFromBracket}
+                          size="2x"
+                          onClick={handleLogout}
+                        />
+                      </Nav.Link>
+                    </>
+                  )}
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

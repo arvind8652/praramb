@@ -26,14 +26,15 @@ import LoginForm from "../components/forms/LoginForm";
 import Header from "../components/Header";
 
 const Dashboard = () => {
-  const { setRecoilVal } = useSelector();
+  const { setRecoilVal, getRecoilVal } = useSelector();
   const [showModal, setShowModal] = useState(false);
   const [modalFor, setModalFor] = useState("");
 
   useEffect(() => {
-    setShowModal(true);
-    setModalFor(LOGIN_FORM);
-
+    if (!getRecoilVal(atomNameConst?.LOGINDETAIL)) {
+      setShowModal(true);
+      setModalFor(LOGIN_FORM);
+    }
     return () => {
       setModalFor("");
       setShowModal(false);
@@ -107,7 +108,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header />
+      <Header setShowModal={setShowModal} setModalFor={setModalFor} />
       <div className="container  p-3">
         <MemberShipSummary />
         <div className="row">
@@ -144,7 +145,7 @@ const Dashboard = () => {
           children={<LoadParticularComp />}
           modalFor={modalFor}
           title={loadParticularTitle()}
-          defaultCloseBtn={modalFor === LOGIN_FORM ? true : true}
+          defaultCloseBtn={modalFor === LOGIN_FORM ? false : true}
         />
       </div>
     </>

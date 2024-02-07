@@ -18,6 +18,7 @@ const LoginForm = (props) => {
   const handlePostApiForLogin = async (data) => {
     try {
       const resp = await post("admin/login", data);
+      setRecoilVal(atomNameConst?.LOGINDETAIL, resp?.data);
       setShowModal(false);
       return true;
     } catch (error) {

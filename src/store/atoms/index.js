@@ -32,3 +32,9 @@ export const summary = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const loginDetail = atom({
+  key: "loginDetail",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});

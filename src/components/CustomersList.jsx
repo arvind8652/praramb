@@ -1,13 +1,7 @@
-import {
-  faPencil,
-  faPerson,
-  faPersonDress,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPerson, faPersonDress } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
-import Example from "./commonComp/CustOverlay";
+import { Pagination, Table } from "react-bootstrap";
 import { get } from "../utities/apiServices";
 import {
   CUSTOMER_DELETE,
@@ -56,6 +50,16 @@ const CustomersList = (props) => {
         break;
     }
   };
+
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>
+    );
+  }
 
   return (
     <div className="card  shadow p-3 mb-5 bg-white rounded">
@@ -113,31 +117,11 @@ const CustomersList = (props) => {
                 </tr>
               );
             })}
-            {/* <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>
-                <button className="btn btn-info">Action</button>
+            <tr>
+              <td colSpan={6} className="bg-light">
+                <Pagination>{items}</Pagination>
               </td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>
-                <FontAwesomeIcon icon={faPencil} size="lg" {...props} />
-                <div className="vr mx-2"></div>
-                <FontAwesomeIcon icon={faTrash} size="lg" />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colSpan="2">Larry the Bird</td>
-              <td>
-                <Example />
-              </td>
-            </tr> */}
           </tbody>
         </Table>
       </div>
