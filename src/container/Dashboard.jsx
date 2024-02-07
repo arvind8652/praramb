@@ -23,6 +23,7 @@ import NotificationDelete from "../components/forms/NotificationDelete";
 import CustomerView from "../components/forms/CustomerView";
 import CustomerDelete from "../components/forms/CustomerDelete";
 import LoginForm from "../components/forms/LoginForm";
+import Header from "../components/Header";
 
 const Dashboard = () => {
   const { setRecoilVal } = useSelector();
@@ -105,45 +106,48 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container  p-3">
-      <MemberShipSummary />
-      <div className="row">
-        <div className="col-12 col-md-8">
-          <CustomersList
-            setShowModal={setShowModal}
-            setModalFor={setModalFor}
-            onClick={() => {
-              setShowModal(true);
-              setModalFor(CUSTOMER_FORM);
-            }}
-          />
+    <>
+      <Header />
+      <div className="container  p-3">
+        <MemberShipSummary />
+        <div className="row">
+          <div className="col-12 col-md-8">
+            <CustomersList
+              setShowModal={setShowModal}
+              setModalFor={setModalFor}
+              onClick={() => {
+                setShowModal(true);
+                setModalFor(CUSTOMER_FORM);
+              }}
+            />
+          </div>
+          <div className="col-12 col-md-4">
+            <NotificationsList
+              setShowModal={setShowModal}
+              setModalFor={setModalFor}
+              onHide={() => {
+                setShowModal(false);
+              }}
+              onClick={() => {
+                setShowModal(true);
+                setModalFor(NOTIFICATION_FORM);
+              }}
+            />
+          </div>
         </div>
-        <div className="col-12 col-md-4">
-          <NotificationsList
-            setShowModal={setShowModal}
-            setModalFor={setModalFor}
-            onHide={() => {
-              setShowModal(false);
-            }}
-            onClick={() => {
-              setShowModal(true);
-              setModalFor(NOTIFICATION_FORM);
-            }}
-          />
-        </div>
+        <CustModal
+          show={showModal}
+          onHide={() => {
+            setShowModal(false);
+            setRecoilVal(atomNameConst.NOTIFICATIONSINGLEDATA, null);
+          }}
+          children={<LoadParticularComp />}
+          modalFor={modalFor}
+          title={loadParticularTitle()}
+          defaultCloseBtn={modalFor === LOGIN_FORM ? true : true}
+        />
       </div>
-      <CustModal
-        show={showModal}
-        onHide={() => {
-          setShowModal(false);
-          setRecoilVal(atomNameConst.NOTIFICATIONSINGLEDATA, null);
-        }}
-        children={<LoadParticularComp />}
-        modalFor={modalFor}
-        title={loadParticularTitle()}
-        defaultCloseBtn={modalFor === LOGIN_FORM ? true : true}
-      />
-    </div>
+    </>
   );
 };
 

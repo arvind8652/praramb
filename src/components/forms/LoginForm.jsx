@@ -17,9 +17,7 @@ const LoginForm = (props) => {
 
   const handlePostApiForLogin = async (data) => {
     try {
-      const resp = await post("notifications/add", data);
-      const val = await get("notifications");
-      setRecoilVal(atomNameConst.NOTIFICATIONS, val?.data);
+      const resp = await post("admin/login", data);
       setShowModal(false);
       return true;
     } catch (error) {
@@ -51,14 +49,14 @@ const LoginForm = (props) => {
             <Col md={6}>
               <Col md={12} className="mb-3">
                 <CustInputField
-                  label={"User Name"}
+                  label={"Mobile No"}
                   type={"text"}
-                  name={"userName"}
+                  name={"mobileNo"}
                   onChange={handleChange}
-                  value={values?.userName}
-                  error={errors.userName}
-                  isValid={touched.userName && !errors.userName}
-                  isInvalid={!!errors.userName}
+                  value={values?.mobileNo}
+                  error={errors.mobileNo}
+                  isValid={touched.mobileNo && !errors.mobileNo}
+                  isInvalid={!!errors.mobileNo}
                 />
               </Col>
               <Col md={12} className="mb-3">
