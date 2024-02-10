@@ -7,7 +7,7 @@ import {
 } from "../../utities/constants";
 import { Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const DataWithLabel = (props) => {
   const { label, data, colMd } = props;
@@ -64,7 +64,6 @@ const CustomerView = (props) => {
         <DataWithLabel label={"Status"} data={data?.status} colMd="4" />
         <DataWithLabel label={"Amount"} data={data?.amount} colMd="4" />
         <DataWithLabel label={"Gender"} data={data?.gender} colMd="4" />
-
         <DataWithLabel label={"Comment"} data={data?.comment} colMd="12" />
       </Row>
     </>

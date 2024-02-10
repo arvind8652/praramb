@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import useSelector from "../store/selector";
-import { LOGIN_FORM, atomNameConst } from "../utities/constants";
+import { BRANDNAME, LOGIN_FORM, atomNameConst } from "../utities/constants";
 
 function Header(props) {
   const { setModalFor, setShowModal } = props;
@@ -30,7 +30,7 @@ function Header(props) {
           className="bg-body-tertiary mb-3 sticky-top "
         >
           <Container fluid>
-            <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
+            <Navbar.Brand href="#">{BRANDNAME}</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
