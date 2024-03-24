@@ -44,7 +44,6 @@ export const post = async (url, postData) => {
 };
 
 export const put = async (url, putData) => {
-  // Send a PUT request to update the task
   fetch(`${BASEURL}${url}`, {
     method: "PUT",
     headers: {
@@ -63,7 +62,6 @@ export const put = async (url, putData) => {
 };
 
 export const deleted = (url) => {
-  // Send a DELETE request to delete the task
   fetch(`${BASEURL}${url}`, {
     method: "DELETE",
   })

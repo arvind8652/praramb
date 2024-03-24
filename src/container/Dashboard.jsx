@@ -13,8 +13,9 @@ import {
   NOTIFICATION_EDIT,
   NOTIFICATION_FORM,
   NOTIFICATION_VIEW,
+  PAYMENT_FORM,
   atomNameConst,
-} from "../utities/constants";
+} from "../utilities/constants";
 import NotificationForm from "../components/forms/NotificationForm";
 import MemberShipSummary from "../components/MemberShipSummary";
 import NotificationView from "../components/forms/NotificationView";
@@ -24,6 +25,8 @@ import CustomerView from "../components/forms/CustomerView";
 import CustomerDelete from "../components/forms/CustomerDelete";
 import LoginForm from "../components/forms/LoginForm";
 import Header from "../components/Header";
+import BarChartvic from "../components/BarChartvic";
+import PaymentForm from "../components/forms/PaymentForm";
 
 const Dashboard = () => {
   const { setRecoilVal, getRecoilVal } = useSelector();
@@ -76,6 +79,8 @@ const Dashboard = () => {
             formType="view"
           />
         );
+      case PAYMENT_FORM:
+        return <PaymentForm setShowModal={setShowModal} formType="new" />;
       default:
         return <NotificationForm setShowModal={setShowModal} />;
     }
@@ -101,6 +106,8 @@ const Dashboard = () => {
         return "Notification Edit";
       case NOTIFICATION_DELETE:
         return "Notification Delete";
+      case PAYMENT_FORM:
+        return "Payment Form";
       default:
         break;
     }
@@ -148,6 +155,7 @@ const Dashboard = () => {
           defaultCloseBtn={modalFor === LOGIN_FORM ? false : true}
         />
       </div>
+      {/* <BarChartvic /> */}
     </>
   );
 };

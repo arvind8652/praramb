@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import useSelector from "../store/selector";
-import { BRANDNAME, LOGIN_FORM, atomNameConst } from "../utities/constants";
+import { BRANDNAME, LOGIN_FORM, atomNameConst } from "../utilities/constants";
 
 function Header(props) {
   const { setModalFor, setShowModal } = props;
@@ -39,7 +39,7 @@ function Header(props) {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Offcanvas
+                  {BRANDNAME}
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>

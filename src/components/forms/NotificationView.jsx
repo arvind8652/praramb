@@ -4,7 +4,7 @@ import {
   NOTIFICATION_DELETE,
   NOTIFICATION_EDIT,
   atomNameConst,
-} from "../../utities/constants";
+} from "../../utilities/constants";
 import { Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";

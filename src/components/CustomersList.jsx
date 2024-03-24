@@ -2,13 +2,14 @@ import { faPerson, faPersonDress } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Pagination, Table } from "react-bootstrap";
-import { get } from "../utities/apiServices";
+import { get } from "../utilities/apiServices";
 import {
   CUSTOMER_DELETE,
   CUSTOMER_EDIT,
   CUSTOMER_VIEW,
+  PAYMENT_FORM,
   atomNameConst,
-} from "../utities/constants";
+} from "../utilities/constants";
 import useSelector from "../store/selector";
 import CustOverLay from "./commonComp/CustOverlay";
 
@@ -22,6 +23,12 @@ const CustomersList = (props) => {
     };
     getCustomersList();
   }, []);
+
+  const handlePayClick = (data) => {
+    setModalFor(PAYMENT_FORM);
+    setShowModal(true);
+    setRecoilVal(atomNameConst.CUSTOMERSINGLEDATA, data);
+  };
 
   const handleClick = (clickEvent, data) => {
     switch (clickEvent) {
@@ -77,6 +84,7 @@ const CustomersList = (props) => {
               <th scope="col">Name</th>
               <th scope="col">Status</th>
               <th scope="col">End Date</th>
+              <th scope="col">Amount Pending</th>
               <th scope="col">Gender</th>
               <th scope="col"></th>
             </tr>
@@ -85,17 +93,29 @@ const CustomersList = (props) => {
             {getRecoilVal(atomNameConst.CUSTOMERS)?.map((val, index) => {
               return (
                 <tr key={val._id}>
-                  {/* <th scope="row">{val.id}</th> */}
                   <td>{index + 1}</td>
                   <td>{`${val.firstName} ${val.lastName}`}</td>
                   <td>{val.status}</td>
                   <td>{val.endDate}</td>
                   <td>
+                    {
+                      <div className="d-flex">
+                        {500}
+                        <button
+                          className="btn btn-outline-primary btn-sm mx-2 py-0 rounded-4"
+                          onClick={() => handlePayClick(val)}
+                        >
+                          Pay Now
+                        </button>
+                      </div>
+                    }
+                  </td>
+                  <td>
                     {val.gender === "male" ? (
                       <>
                         <FontAwesomeIcon
                           icon={faPerson}
-                          size="2x"
+                          size="1x"
                           style={{ color: "#74C0FC" }}
                         />
                         {" Male"}
@@ -105,7 +125,7 @@ const CustomersList = (props) => {
                         <FontAwesomeIcon
                           icon={faPersonDress}
                           style={{ color: "#cc28c7" }}
-                          size="2x"
+                          size="1x"
                         />
                         {" Female"}
                       </>

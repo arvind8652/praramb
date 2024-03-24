@@ -7,10 +7,10 @@ import * as formik from "formik";
 import {
   notificationFormInitialData,
   notificationFormSchema,
-} from "../../utities/utilities";
-import { get, post, put } from "../../utities/apiServices";
+} from "../../utilities/utilities";
+import { get, post, put } from "../../utilities/apiServices";
 import useSelector from "../../store/selector";
-import { atomNameConst } from "../../utities/constants";
+import { atomNameConst } from "../../utilities/constants";
 
 const NotificationForm = (props) => {
   const { setShowModal, formType } = props;

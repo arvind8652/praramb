@@ -1,14 +1,74 @@
 const router = require("express").Router();
-let customerData = require("../models/customers.model");
+const customerData = require("../models/customers.model");
+const paymentData = require("../models/paymentDetail.model");
 
 router.route("/").get(async (req, res) => {
   try {
-    const resp = await customerData.find();
+    const resp = await customerData
+      .aggregate([
+        {
+          $lookup: {
+            from: "paymentData", // This is the name of the "Amount" collection in the database
+            localField: "_id",
+            foreignField: "custId",
+            as: "amounts",
+          },
+        },
+
+        {
+          $addFields: {
+            totalAmount: {
+              $reduce: {
+                input: "$amounts",
+                initialValue: 0,
+                in: {
+                  $add: [
+                    "$$value",
+                    { $toDouble: "$$this.payingAmount" }, // Convert each amount to a number
+                  ],
+                },
+              },
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            firstName: 1,
+            lastName: 1,
+            status: 1,
+            endDate: 1,
+            gender: 1,
+            totalAmount: 1,
+            amounts: 1,
+            // totalAmount: { $sum: "$amounts.payingAmount" },
+            // You can project other customer fields as needed
+          },
+        },
+      ])
+      .exec()
+      .then((results) => {
+        console.log(results);
+        return results;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
     res.status(200).json({ statusMsg: "success", data: resp });
   } catch (err) {
     res.status(400).json({ statusMsg: "error", data: err.message });
   }
 });
+
+// router.route("/").get(async (req, res) => {
+//   try {
+//     const resp = await customerData.find();
+//     res.status(200).json({ statusMsg: "success", data: resp });
+//   } catch (err) {
+//     res.status(400).json({ statusMsg: "error", data: err.message });
+//   }
+// });
 
 router.route("/summary").get(async (req, res) => {
   try {
@@ -131,6 +191,30 @@ router.route("/delete/:id").delete(async (req, res) => {
     console.error(error);
     res.status(500).json({ statusMsg: "error", data: "Internal Server Error" });
   }
+});
+
+router.route("/payment").post((req, res) => {
+  const { custId, adminId, amountPayed, mode, transactionId } = req.body;
+
+  const newCustomer = new customerData({
+    custId,
+    adminId,
+    amountPayed,
+    mode,
+    transactionId,
+  });
+
+  newCustomer
+    .save()
+    .then(() =>
+      res.json({
+        statusMsg: "success",
+        data: "payed successfully",
+      })
+    )
+    .catch((err) =>
+      res.status(400).json({ statusMsg: "error", data: err.message })
+    );
 });
 
 module.exports = router;

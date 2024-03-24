@@ -9,10 +9,11 @@ export const NOTIFICATION_VIEW = "notification_view";
 export const NOTIFICATION_EDIT = "notification_Edit";
 export const NOTIFICATION_DELETE = "notification_Delete";
 export const LOGIN_FORM = "login_Form";
+export const PAYMENT_FORM = "payment_Form";
 
-// export const BASEURL = "http://localhost:5001/";   //it is used for mockoon api
-// export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database
-export const BASEURL = "http://192.168.0.108:5000/"; // it is used for same network 2
+// export const BASEURL = "http://localhost:5001/"; //it is used for mockoon api
+export const BASEURL = "http://localhost:5000/"; // it is used for mongodb database
+// export const BASEURL = "http://192.168.0.108:5000/"; // it is used for same network 2
 // export const BASEURL = "http://192.168.1.110:5000/"; // it is used for same network 1
 
 export const atomNameConst = {
@@ -38,4 +39,9 @@ export const ROLE_OPTION = [
 export const GENDER_OPTION = [
   { label: "Male", value: "male" },
   { label: "Female", value: "female" },
+];
+
+export const PAYMENT_MODE_OPTION = [
+  { label: "Online", value: "online" },
+  { label: "Offline", value: "offline" },
 ];

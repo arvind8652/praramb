@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import CustOverLay from "./commonComp/CustOverlay";
-import { get } from "../utities/apiServices";
+import { get } from "../utilities/apiServices";
 import useSelector from "../store/selector";
 import {
   NOTIFICATION_DELETE,
   NOTIFICATION_EDIT,
   NOTIFICATION_VIEW,
   atomNameConst,
-} from "../utities/constants";
+} from "../utilities/constants";
 
 const NotificatonsList = (props) => {
   const { setModalFor, setShowModal } = props;
