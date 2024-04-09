@@ -1,10 +1,12 @@
 const router = require("express").Router();
-const attendanceData = require("../models/attendance.model");
+const attendanceData = require("../../models/customerPortal/attendance.model");
 
 router.route("/:id").get(async (req, res) => {
   try {
     const { id } = req.params;
-    const resp = await attendanceData.find({ custId: id });
+    const resp = await attendanceData
+      .find({ custId: id })
+      .sort({ createdAt: -1 });
     res.status(200).json({ statusMsg: "success", data: resp });
   } catch (error) {
     console.error(error);

@@ -47,12 +47,14 @@ const notificationsRouter = require("./routes/notifications");
 const customersRouter = require("./routes/customers");
 const adminRouter = require("./routes/admin");
 const paymentRouter = require("./routes/payments");
-const attendanceRouter = require("./routes/attendance");
+const attendanceRouter = require("./routes/customerPortal/attendance");
+const customerDetail = require("./routes/customerPortal/customerDetail");
 app.use("/notifications", notificationsRouter);
 app.use("/customers", customersRouter);
 app.use("/admin", adminRouter);
 app.use("/payments", paymentRouter);
 app.use("/attendance", attendanceRouter);
+app.use("/customerDetail", customerDetail);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
