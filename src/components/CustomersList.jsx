@@ -100,13 +100,13 @@ const CustomersList = (props) => {
                   <td>
                     {
                       <div className="d-flex">
-                        {500}
                         <button
                           className="btn btn-outline-primary btn-sm mx-2 py-0 rounded-4"
                           onClick={() => handlePayClick(val)}
                         >
-                          Pay Now
+                          {val.totalAmountDue === 0 ? "View Detail" : "Pay Now"}
                         </button>
+                        {val.totalAmountDue}
                       </div>
                     }
                   </td>
@@ -138,7 +138,7 @@ const CustomersList = (props) => {
               );
             })}
             <tr>
-              <td colSpan={6} className="bg-light">
+              <td colSpan={7} className="bg-light">
                 <Pagination>{items}</Pagination>
               </td>
             </tr>

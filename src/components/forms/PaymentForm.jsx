@@ -108,62 +108,64 @@ const PaymentForm = (props) => {
               )}
             </tbody>
           </Table>
-          <Row>
-            <hr />
-            <DataWithLabel
-              label={"Total Amount"}
-              data={amountDetail?.totalAmount}
-              colMd="4"
-            />
-            <DataWithLabel
-              label={"Remaining Amount"}
-              data={amountDetail?.remainingAmount}
-              colMd="4"
-            />
-            <Col md="4" className="mb-3">
-              <CustInputField
-                label={"Paying Amount"}
-                type={"text"}
-                name={"payingAmount"}
-                onChange={handleChange}
-                value={values?.payingAmount}
-                error={errors.payingAmount}
-                isValid={touched.payingAmount && !errors.payingAmount}
-                isInvalid={!!errors.payingAmount}
+          {amountDetail?.remainingAmount > 0 && (
+            <Row>
+              <hr />
+              <DataWithLabel
+                label={"Total Amount"}
+                data={amountDetail?.totalAmount}
+                colMd="4"
               />
-            </Col>
-            <Col md="4" className="mb-3">
-              <CustSelectField
-                option={PAYMENT_MODE_OPTION}
-                label={"Payment Mode"}
-                name={"mode"}
-                onChange={handleChange}
-                value={values?.mode}
-                error={errors.mode}
-                isValid={touched.mode && !errors.mode}
-                isInvalid={!!errors.mode}
+              <DataWithLabel
+                label={"Remaining Amount"}
+                data={amountDetail?.remainingAmount}
+                colMd="4"
               />
-            </Col>
-            <Col md="4" className="mb-3">
-              <CustInputField
-                label={"Transaction Id"}
-                type={"text"}
-                name={"transactionId"}
-                onChange={handleChange}
-                value={values?.transactionId}
-                error={errors.transactionId}
-                isValid={touched.transactionId && !errors.transactionId}
-                isInvalid={!!errors.transactionId}
-              />
-            </Col>
+              <Col md="4" className="mb-3">
+                <CustInputField
+                  label={"Paying Amount"}
+                  type={"text"}
+                  name={"payingAmount"}
+                  onChange={handleChange}
+                  value={values?.payingAmount}
+                  error={errors.payingAmount}
+                  isValid={touched.payingAmount && !errors.payingAmount}
+                  isInvalid={!!errors.payingAmount}
+                />
+              </Col>
+              <Col md="4" className="mb-3">
+                <CustSelectField
+                  option={PAYMENT_MODE_OPTION}
+                  label={"Payment Mode"}
+                  name={"mode"}
+                  onChange={handleChange}
+                  value={values?.mode}
+                  error={errors.mode}
+                  isValid={touched.mode && !errors.mode}
+                  isInvalid={!!errors.mode}
+                />
+              </Col>
+              <Col md="4" className="mb-3">
+                <CustInputField
+                  label={"Transaction Id"}
+                  type={"text"}
+                  name={"transactionId"}
+                  onChange={handleChange}
+                  value={values?.transactionId}
+                  error={errors.transactionId}
+                  isValid={touched.transactionId && !errors.transactionId}
+                  isInvalid={!!errors.transactionId}
+                />
+              </Col>
 
-            <hr />
-            <Col md="12" className=" d-flex justify-content-center">
-              <Button type="submit" variant="primary">
-                Submit
-              </Button>
-            </Col>
-          </Row>
+              <hr />
+              <Col md="12" className=" d-flex justify-content-center">
+                <Button type="submit" variant="primary">
+                  Submit
+                </Button>
+              </Col>
+            </Row>
+          )}
         </Form>
       )}
     </Formik>

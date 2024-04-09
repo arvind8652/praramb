@@ -27,6 +27,7 @@ import LoginForm from "../components/forms/LoginForm";
 import Header from "../components/Header";
 import BarChartvic from "../components/BarChartvic";
 import PaymentForm from "../components/forms/PaymentForm";
+import QRCodeGenerator from "../components/GenerateQR";
 
 const Dashboard = () => {
   const { setRecoilVal, getRecoilVal } = useSelector();
@@ -117,6 +118,7 @@ const Dashboard = () => {
     <>
       <Header setShowModal={setShowModal} setModalFor={setModalFor} />
       <div className="container  p-3">
+        <QRCodeGenerator />
         <MemberShipSummary />
         <div className="row">
           <div className="col-12 col-md-8">

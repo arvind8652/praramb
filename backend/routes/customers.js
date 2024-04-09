@@ -1,65 +1,5 @@
 const router = require("express").Router();
 const customerData = require("../models/customers.model");
-const paymentData = require("../models/paymentDetail.model");
-
-router.route("/").get(async (req, res) => {
-  try {
-    const resp = await customerData
-      .aggregate([
-        {
-          $lookup: {
-            from: "paymentData", // This is the name of the "Amount" collection in the database
-            localField: "_id",
-            foreignField: "custId",
-            as: "amounts",
-          },
-        },
-
-        {
-          $addFields: {
-            totalAmount: {
-              $reduce: {
-                input: "$amounts",
-                initialValue: 0,
-                in: {
-                  $add: [
-                    "$$value",
-                    { $toDouble: "$$this.payingAmount" }, // Convert each amount to a number
-                  ],
-                },
-              },
-            },
-          },
-        },
-        {
-          $project: {
-            _id: 1,
-            firstName: 1,
-            lastName: 1,
-            status: 1,
-            endDate: 1,
-            gender: 1,
-            totalAmount: 1,
-            amounts: 1,
-            // totalAmount: { $sum: "$amounts.payingAmount" },
-            // You can project other customer fields as needed
-          },
-        },
-      ])
-      .exec()
-      .then((results) => {
-        console.log(results);
-        return results;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-    res.status(200).json({ statusMsg: "success", data: resp });
-  } catch (err) {
-    res.status(400).json({ statusMsg: "error", data: err.message });
-  }
-});
 
 // router.route("/").get(async (req, res) => {
 //   try {
@@ -69,6 +9,82 @@ router.route("/").get(async (req, res) => {
 //     res.status(400).json({ statusMsg: "error", data: err.message });
 //   }
 // });
+
+router.route("/").get(async (req, res) => {
+  try {
+    const resp = await customerData.aggregate([
+      {
+        $lookup: {
+          from: "paymentdetails",
+          localField: "_id",
+          foreignField: "custId",
+          as: "payments",
+        },
+      },
+      {
+        $unwind: {
+          path: "$payments",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          firstName: { $first: "$firstName" },
+          lastName: { $first: "$lastName" },
+          dob: { $first: "$dob" },
+          mobileNo: { $first: "$mobileNo" },
+          email: { $first: "$email" },
+          role: { $first: "$role" },
+          startDate: { $first: "$startDate" },
+          endDate: { $first: "$endDate" },
+          status: { $first: "$status" },
+          amount: { $first: "$amount" },
+          gender: { $first: "$gender" },
+          comment: { $first: "$comment" },
+          createdAt: { $first: "$createdAt" },
+          updatedAt: { $first: "$updatedAt" },
+          totalPayment: { $sum: "$payments.payingAmount" },
+        },
+      },
+      {
+        $addFields: {
+          totalAmountDue: { $subtract: ["$amount", "$totalPayment"] },
+        },
+      },
+
+      {
+        $project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1,
+          dob: 1,
+          mobileNo: 1,
+          email: 1,
+          role: 1,
+          startDate: 1,
+          endDate: 1,
+          status: 1,
+          amount: 1,
+          gender: 1,
+          comment: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          totalPayment: { $ifNull: ["$totalPayment", 0] },
+          totalAmountDue: { $ifNull: ["$totalAmountDue", 0] },
+        },
+      },
+      {
+        $sort: {
+          updatedAt: 1,
+        },
+      },
+    ]);
+    res.status(200).json({ statusMsg: "success", data: resp });
+  } catch (err) {
+    res.status(400).json({ statusMsg: "error", data: err.message });
+  }
+});
 
 router.route("/summary").get(async (req, res) => {
   try {
