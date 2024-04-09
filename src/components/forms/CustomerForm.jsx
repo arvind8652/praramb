@@ -8,15 +8,15 @@ import * as formik from "formik";
 import {
   customerFormInitialData,
   customerFormSchema,
-} from "../../utities/utilities";
+} from "../../utilities/utilities";
 import {
   GENDER_OPTION,
   ROLE_OPTION,
   STATUS_OPTION,
   atomNameConst,
-} from "../../utities/constants";
+} from "../../utilities/constants";
 import useSelector from "../../store/selector";
-import { get, post, put } from "../../utities/apiServices";
+import { get, post, put } from "../../utilities/apiServices";
 
 const CustomerForm = (props) => {
   const { setShowModal, formType } = props;

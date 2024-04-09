@@ -10,7 +10,7 @@ const customerSchema = new Schema({
   startDate: { type: String, required: true, trim: true },
   endDate: { type: String, required: true, trim: true },
   status: { type: String, required: true, trim: true },
-  amount: { type: String, required: true, trim: true },
+  amount: { type: Number, required: true, trim: true },
   gender: { type: String, required: true, trim: true },
   comment: { type: String, required: true, trim: true },
   createdAt: { type: Date, default: Date.now() },

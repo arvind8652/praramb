@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import * as formik from "formik";
-import { deleted, get, put } from "../../utities/apiServices";
+import { deleted, get, put } from "../../utilities/apiServices";
 import useSelector from "../../store/selector";
-import { atomNameConst } from "../../utities/constants";
+import { atomNameConst } from "../../utilities/constants";
 
 const CustomerDelete = (props) => {
   const { setShowModal } = props;

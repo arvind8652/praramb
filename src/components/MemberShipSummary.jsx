@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { get } from "../utities/apiServices";
+import { get } from "../utilities/apiServices";
 import CustCard from "./commonComp/CustCard";
 import {
   faIndianRupee,
@@ -7,7 +7,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import useSelector from "../store/selector";
-import { atomNameConst } from "../utities/constants";
+import { atomNameConst } from "../utilities/constants";
 
 const MemberShipSummary = () => {
   const { getRecoilVal, setRecoilVal } = useSelector();

@@ -1,9 +1,85 @@
 const router = require("express").Router();
-let customerData = require("../models/customers.model");
+const customerData = require("../models/customers.model");
+
+// router.route("/").get(async (req, res) => {
+//   try {
+//     const resp = await customerData.find();
+//     res.status(200).json({ statusMsg: "success", data: resp });
+//   } catch (err) {
+//     res.status(400).json({ statusMsg: "error", data: err.message });
+//   }
+// });
 
 router.route("/").get(async (req, res) => {
   try {
-    const resp = await customerData.find();
+    const resp = await customerData.aggregate([
+      {
+        $lookup: {
+          from: "paymentdetails",
+          localField: "_id",
+          foreignField: "custId",
+          as: "payments",
+        },
+      },
+      {
+        $unwind: {
+          path: "$payments",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          firstName: { $first: "$firstName" },
+          lastName: { $first: "$lastName" },
+          dob: { $first: "$dob" },
+          mobileNo: { $first: "$mobileNo" },
+          email: { $first: "$email" },
+          role: { $first: "$role" },
+          startDate: { $first: "$startDate" },
+          endDate: { $first: "$endDate" },
+          status: { $first: "$status" },
+          amount: { $first: "$amount" },
+          gender: { $first: "$gender" },
+          comment: { $first: "$comment" },
+          createdAt: { $first: "$createdAt" },
+          updatedAt: { $first: "$updatedAt" },
+          totalPayment: { $sum: "$payments.payingAmount" },
+        },
+      },
+      {
+        $addFields: {
+          totalAmountDue: { $subtract: ["$amount", "$totalPayment"] },
+        },
+      },
+
+      {
+        $project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1,
+          dob: 1,
+          mobileNo: 1,
+          email: 1,
+          role: 1,
+          startDate: 1,
+          endDate: 1,
+          status: 1,
+          amount: 1,
+          gender: 1,
+          comment: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          totalPayment: { $ifNull: ["$totalPayment", 0] },
+          totalAmountDue: { $ifNull: ["$totalAmountDue", 0] },
+        },
+      },
+      {
+        $sort: {
+          updatedAt: 1,
+        },
+      },
+    ]);
     res.status(200).json({ statusMsg: "success", data: resp });
   } catch (err) {
     res.status(400).json({ statusMsg: "error", data: err.message });
@@ -131,6 +207,30 @@ router.route("/delete/:id").delete(async (req, res) => {
     console.error(error);
     res.status(500).json({ statusMsg: "error", data: "Internal Server Error" });
   }
+});
+
+router.route("/payment").post((req, res) => {
+  const { custId, adminId, amountPayed, mode, transactionId } = req.body;
+
+  const newCustomer = new customerData({
+    custId,
+    adminId,
+    amountPayed,
+    mode,
+    transactionId,
+  });
+
+  newCustomer
+    .save()
+    .then(() =>
+      res.json({
+        statusMsg: "success",
+        data: "payed successfully",
+      })
+    )
+    .catch((err) =>
+      res.status(400).json({ statusMsg: "error", data: err.message })
+    );
 });
 
 module.exports = router;

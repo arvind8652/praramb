@@ -7,7 +7,7 @@ import {
   notifications,
   summary,
 } from "../atoms";
-import { atomNameConst } from "../../utities/constants";
+import { atomNameConst } from "../../utilities/constants";
 
 const useSelector = () => {
   const [notificationsVal, setNotificationsVal] = useRecoilState(notifications);
