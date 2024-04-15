@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const router = require("express").Router();
 const attendanceData = require("../../models/customerPortal/attendance.model");
 const customerData = require("../../models/customers.model");
@@ -26,25 +27,27 @@ router.route("/login").post(async (req, res) => {
 router.route("/summary/:custId").get(async (req, res) => {
   // const { custId } = req.body;
   const { custId } = req.params;
+  console.log("check the customer id--------", custId);
+  const specificCustomerId = new mongoose.Types.ObjectId(custId);
   try {
-    const lastDate = await customerData.find(
+    const endDate = await customerData.find(
       { _id: custId },
-      { lastDate: 1, _id: 0 }
+      { endDate: 1, _id: 0 }
     );
     const attendanceCount = await attendanceData.aggregate([
       {
-        $group: {
-          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+        $match: {
+          custId: specificCustomerId,
+          // date: { $gte: new Date("$startDate"), $lte: new Date() },
         },
       },
-      {
-        $sum: 1,
-      },
+      { $count: custId },
     ]);
     let summaryData = {
-      lastDate,
+      endDate,
       attendanceCount,
     };
+    console.log("chekck data---------", summaryData);
     res.status(200).json({ statusMsg: "success", data: summaryData });
   } catch (error) {
     console.error(error);
