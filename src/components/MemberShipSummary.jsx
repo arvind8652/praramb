@@ -15,7 +15,7 @@ const MemberShipSummary = () => {
   useEffect(() => {
     const getMeberShipDetail = async () => {
       const val = await get("customers/summary");
-      setRecoilVal(atomNameConst.SUMMARY, val?.data?.[0]);
+      setRecoilVal(atomNameConst.SUMMARY, val?.data);
 
       // setData(val?.data);
     };
@@ -36,7 +36,7 @@ const MemberShipSummary = () => {
           <CustCard
             icon={faPersonWalking}
             data={getRecoilVal(atomNameConst.SUMMARY)?.totalActiveCustomers}
-            text="Today active Customers"
+            text="Active Customers"
           />
         </div>
         <div className="col">

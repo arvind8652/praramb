@@ -7,8 +7,8 @@ const CustCard = (props) => {
     <div className="card text-center shadow p-3 mb-5 bg-white rounded">
       <div className="card-body">
         <h5 className="card-title d-flex justify-content-around">
-          <FontAwesomeIcon icon={icon} size="3x" />
-          <div className="card fs-1 shadow p-2 bg-white rounded">{data}</div>
+          {icon && <FontAwesomeIcon icon={icon} size="3x" {...props} />}
+          {data && <h1>{data}</h1>}
         </h5>
         <h5 className="card-text">{text}</h5>
       </div>

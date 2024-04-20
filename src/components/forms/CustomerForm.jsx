@@ -23,13 +23,17 @@ const CustomerForm = (props) => {
   const { Formik } = formik;
   const { setRecoilVal, getRecoilVal } = useSelector();
   const customerDataForEdit = getRecoilVal(atomNameConst.CUSTOMERSINGLEDATA);
+  const loginDetail = getRecoilVal(atomNameConst.LOGINDETAIL);
 
   const handlePostApiForCustomer = async (data) => {
+    const reqData = { ...data };
+    reqData.adminId = loginDetail?._id;
+    reqData.brandId = loginDetail?.brandId;
     try {
       const resp =
         formType === "edit"
-          ? await put(`customers/edit/${customerDataForEdit?._id}`, data)
-          : await post("customers/add", data);
+          ? await put(`customers/edit/${customerDataForEdit?._id}`, reqData)
+          : await post("customers/add", reqData);
       const val = await get("customers");
       const summaryData = await get("customers/summary");
       setRecoilVal(atomNameConst.CUSTOMERS, val?.data);

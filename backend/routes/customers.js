@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const attendanceData = require("../models/customerPortal/attendance.model");
 const customerData = require("../models/customers.model");
 
 // router.route("/").get(async (req, res) => {
@@ -88,18 +89,32 @@ router.route("/").get(async (req, res) => {
 
 router.route("/summary").get(async (req, res) => {
   try {
-    // const resp = await customerData.find().select("-_id amount");
+    const currentActiveCustomer = await attendanceData.aggregate([
+      {
+        $match: {
+          in_time: { $ne: null },
+          out_time: null,
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ]);
     const resp = await customerData.aggregate([
       {
         $group: {
           _id: "null",
           totalAmount: { $sum: { $toDouble: "$amount" } },
           totalCustomers: { $sum: 1 },
-          totalActiveCustomers: { $sum: 1 },
         },
       },
     ]);
-    res.status(200).json({ statusMsg: "success", data: resp });
+    let finalResp = { ...resp[0] };
+    finalResp.totalActiveCustomers = currentActiveCustomer[0]?.count || 0;
+    res.status(200).json({ statusMsg: "success", data: finalResp });
   } catch (err) {
     res.status(400).json({ statusMsg: "error", data: err.message });
   }
@@ -107,6 +122,8 @@ router.route("/summary").get(async (req, res) => {
 
 router.route("/add").post((req, res) => {
   const {
+    brandId,
+    adminId,
     firstName,
     lastName,
     dob,
@@ -122,6 +139,8 @@ router.route("/add").post((req, res) => {
   } = req.body;
 
   const newCustomer = new customerData({
+    brandId,
+    adminId,
     firstName,
     lastName,
     dob,
