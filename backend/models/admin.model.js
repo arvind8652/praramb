@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const adminSchema = new Schema({
+  brandId: {
+    type: Schema.Types.ObjectId,
+    ref: "brandId",
+    require: true,
+    trim: true,
+  },
   name: { type: String, required: true, trim: true },
   mobileNo: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },

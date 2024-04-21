@@ -1,5 +1,7 @@
 const router = require("express").Router();
+const { default: mongoose } = require("mongoose");
 let adminData = require("../models/admin.model");
+let brandDetailsData = require("../models/brandDetails.model");
 
 router.route("/login").post(async (req, res) => {
   const { mobileNo, password } = req.body;
@@ -8,6 +10,15 @@ router.route("/login").post(async (req, res) => {
       .findOne({ mobileNo, password })
       .select("-password -createdAt -updatedAt -__v");
     if (user) {
+      console.log("check login Detail----------", user?.brandId);
+
+      const brandId = new mongoose.Types.ObjectId(user.brandId);
+      const brandDetail = await brandDetailsData.findOne({
+        _id: new mongoose.Types.ObjectId("66237a78fc46bd3859a813c8"),
+      });
+      // .select("-__v");
+
+      console.log("brandDetailVal-------", brandDetail);
       res.status(200).json({ statusMsg: "success", data: user });
     } else {
       res
