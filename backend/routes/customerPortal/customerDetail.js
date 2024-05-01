@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const router = require("express").Router();
 const attendanceData = require("../../models/customerPortal/attendance.model");
 const customerData = require("../../models/customers.model");
+const brandDetailsData = require("../../models/brandDetails.model");
 
 router.route("/login").post(async (req, res) => {
   const { mobileNo } = req.body;
@@ -12,7 +13,12 @@ router.route("/login").post(async (req, res) => {
     );
     //   .select("-password -createdAt -updatedAt -__v");
     if (user) {
-      res.status(200).json({ statusMsg: "success", data: user });
+      const brandDetail = await brandDetailsData
+        .findOne(user?.brandId)
+        .select("-__v -createdAt -updatedAt -status -_id");
+      res
+        .status(200)
+        .json({ statusMsg: "success", data: { user, brandDetail } });
     } else {
       res.status(401).json({ statusMsg: "error", message: "Invalid mobileNo" });
     }
@@ -77,9 +83,25 @@ router.route("/summary/:custId").get(async (req, res) => {
         },
       },
     ]);
+
+    const currentActiveCustomer = await attendanceData.aggregate([
+      {
+        $match: {
+          in_time: { $ne: null },
+          out_time: null,
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ]);
     let summaryData = {
       endDateVal: endDate[0].endDate,
       attendanceVal: `${attendanceCount[0]?.count || 0} / ${totalDay}`,
+      totalActiveCustomer: currentActiveCustomer[0]?.count || 0,
     };
     console.log("chekck data---------", summaryData);
     res.status(200).json({ statusMsg: "success", data: summaryData });

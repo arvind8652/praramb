@@ -10,17 +10,12 @@ router.route("/login").post(async (req, res) => {
       .findOne({ mobileNo, password })
       .select("-password -createdAt -updatedAt -__v");
     if (user) {
-      console.log("check the userDaa-------", typeof user);
-      console.log("check login Detail----------", user?.brandId);
-
-      const brandId = new mongoose.Types.ObjectId(user.brandId);
-      console.log("check the brandId----------", brandId);
-      const brandDetail = await brandDetailsData.findOne({
-        _id: new mongoose.Types.ObjectId("66237a78fc46bd3859a813c8"),
-      });
-      // .select("-__v");
-      console.log("brandDetailVal-------", brandDetail);
-      res.status(200).json({ statusMsg: "success", data: user });
+      const brandDetail = await brandDetailsData
+        .findOne(user?.brandId)
+        .select("-__v -createdAt -updatedAt -status -_id");
+      res
+        .status(200)
+        .json({ statusMsg: "success", data: { user, brandDetail } });
     } else {
       res
         .status(401)

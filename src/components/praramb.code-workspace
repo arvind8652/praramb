@@ -1,11 +1,8 @@
 {
   "folders": [
-	{
-		"path": "../.."
-	},
-	{
-		"path": "../../../backendCode/homeExpBE"
-	}
-],
+    {
+      "path": "../.."
+    }
+  ],
   "settings": {}
 }

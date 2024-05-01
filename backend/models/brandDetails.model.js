@@ -8,5 +8,9 @@ const brandDetailsSchema = new Schema({
   createdAt: { type: Date, default: Date.now() },
   updatedAt: { type: Date, default: Date.now() },
 });
-const brandDetails = mongoose.model("brandDetails", brandDetailsSchema);
+const brandDetails = mongoose.model(
+  "brandDetails",
+  brandDetailsSchema,
+  "brandDetails"
+);
 module.exports = brandDetails;
