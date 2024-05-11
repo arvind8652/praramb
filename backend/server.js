@@ -49,12 +49,14 @@ const adminRouter = require("./routes/admin");
 const paymentRouter = require("./routes/payments");
 const attendanceRouter = require("./routes/customerPortal/attendance");
 const customerDetail = require("./routes/customerPortal/customerDetail");
+const chatWithAdmin = require("./routes/customerPortal/chatWithAdmin");
 app.use("/notifications", notificationsRouter);
 app.use("/customers", customersRouter);
 app.use("/admin", adminRouter);
 app.use("/payments", paymentRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/customerDetail", customerDetail);
+app.use("/chat", chatWithAdmin);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
