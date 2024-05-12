@@ -65,3 +65,12 @@ export const paymentFormSchema = yup.object().shape({
   transactionId: yup.string().required(),
 });
 // ------------------------end for payment detail-------------------
+
+// ------------------------start for chat detail----------------------
+export const chatInitialData = {
+  chat: "",
+};
+export const chatSchema = yup.object().shape({
+  chat: yup.string().required("Message is required"),
+});
+// ------------------------end for chat detail----------------------

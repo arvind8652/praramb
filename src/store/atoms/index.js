@@ -38,3 +38,9 @@ export const loginDetail = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const chat = atom({
+  key: "chat",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});

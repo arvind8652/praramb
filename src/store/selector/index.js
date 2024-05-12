@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import {
+  chat,
   customerSingleData,
   customers,
   loginDetail,
@@ -18,6 +19,7 @@ const useSelector = () => {
     useRecoilState(customerSingleData);
   const [summaryVal, setSummaryVal] = useRecoilState(summary);
   const [loginDetailVal, setLoginDetailVal] = useRecoilState(loginDetail);
+  const [chatVal, setChatVal] = useRecoilState(chat);
 
   const getRecoilVal = (atomName) => {
     switch (atomName) {
@@ -33,6 +35,8 @@ const useSelector = () => {
         return summaryVal;
       case atomNameConst.LOGINDETAIL:
         return loginDetailVal;
+      case atomNameConst.CHAT:
+        return chatVal;
       default:
         throw new Error(`Unknown atom name:${atomName}`);
     }
@@ -57,6 +61,9 @@ const useSelector = () => {
         break;
       case atomNameConst.LOGINDETAIL:
         setLoginDetailVal(data);
+        break;
+      case atomNameConst.CHAT:
+        setChatVal(data);
         break;
       default:
         throw new Error(`Unknown atom name:${atomName}`);

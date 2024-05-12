@@ -9,6 +9,7 @@ import {
   CUSTOMER_FORM,
   CUSTOMER_VIEW,
   LOGIN_FORM,
+  CHAT,
   NOTIFICATION_DELETE,
   NOTIFICATION_EDIT,
   NOTIFICATION_FORM,
@@ -28,6 +29,7 @@ import Header from "../components/Header";
 import BarChartvic from "../components/BarChartvic";
 import PaymentForm from "../components/forms/PaymentForm";
 import QRCodeGenerator from "../components/GenerateQR";
+import Chat from "../components/forms/Chat";
 
 const Dashboard = () => {
   const { setRecoilVal, getRecoilVal } = useSelector();
@@ -47,6 +49,8 @@ const Dashboard = () => {
 
   const LoadParticularComp = () => {
     switch (modalFor) {
+      case CHAT:
+        return <Chat setShowModal={setShowModal} />;
       case LOGIN_FORM:
         return <LoginForm setShowModal={setShowModal} />;
       case CUSTOMER_FORM:
@@ -89,6 +93,8 @@ const Dashboard = () => {
 
   const loadParticularTitle = () => {
     switch (modalFor) {
+      case CHAT:
+        return "Message to Customer";
       case LOGIN_FORM:
         return "Login Form";
       case CUSTOMER_FORM:

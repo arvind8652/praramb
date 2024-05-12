@@ -10,6 +10,7 @@ router.route("/add").post(async (req, res) => {
       receiverId,
       message,
       messageRead,
+      createdAt: Date.now(),
     });
 
     newMsg
@@ -34,7 +35,8 @@ router.route("/getMessages/:custId").get(async (req, res) => {
   console.log("check the customer id--------", custId);
   try {
     const resp = await chatWithAdminData.find({
-      $or: [{ senderId: { $in: custId } }, { receiverId: { $in: custId } }],
+      // $or: [{ senderId: { $in: custId } }, { receiverId: { $in: custId } }],
+      $or: [{ senderId: custId }, { receiverId: custId }],
     });
     res.status(200).json({ statusMsg: "success", data: resp });
   } catch (error) {

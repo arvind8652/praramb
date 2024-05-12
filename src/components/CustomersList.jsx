@@ -7,6 +7,7 @@ import {
   CUSTOMER_DELETE,
   CUSTOMER_EDIT,
   CUSTOMER_VIEW,
+  CHAT,
   PAYMENT_FORM,
   atomNameConst,
 } from "../utilities/constants";
@@ -30,8 +31,23 @@ const CustomersList = (props) => {
     setRecoilVal(atomNameConst.CUSTOMERSINGLEDATA, data);
   };
 
+  const getMessages = async (customerId) => {
+    try {
+      const resp = await get(`chat/getMessages/${customerId}`);
+      setRecoilVal(atomNameConst?.CHAT, resp?.data);
+    } catch (error) {}
+  };
+
   const handleClick = (clickEvent, data) => {
     switch (clickEvent) {
+      case "sendMsg":
+        {
+          setModalFor(CHAT);
+          setShowModal(true);
+          setRecoilVal(atomNameConst.CUSTOMERSINGLEDATA, data);
+          getMessages(data?._id);
+        }
+        break;
       case "view":
         {
           setModalFor(CUSTOMER_VIEW);

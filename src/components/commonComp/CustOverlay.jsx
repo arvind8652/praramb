@@ -1,6 +1,7 @@
 import {
   faClose,
   faEllipsisVertical,
+  faEnvelope,
   faEye,
   faIndianRupee,
   faPencil,
@@ -54,6 +55,12 @@ const CustOverLay = (props) => {
                 className="list-group list-group-flush"
                 style={{ cursor: "pointer" }}
               >
+                <li
+                  className="list-group-item list-group-item-action"
+                  onClick={() => btnClicked("sendMsg")}
+                >
+                  <FontAwesomeIcon icon={faEnvelope} size="sm" /> Send Message
+                </li>
                 <li
                   className="list-group-item list-group-item-action"
                   onClick={() => btnClicked("view")}
