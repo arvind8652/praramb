@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import "./custModal.css";
 
 const CustModal = (props) => {
   const {
@@ -17,10 +18,12 @@ const CustModal = (props) => {
       show={show}
       onHide={onHide}
       size="lg"
+      dialogClassName="modal-90h"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
       keyboard={false}
+      scrollable
     >
       <Modal.Header closeButton={defaultCloseBtn}>
         <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>

@@ -81,60 +81,67 @@ const Chat = (props) => {
     </div>
   );
   return (
-    <Formik
-      validationSchema={chatSchema}
-      onSubmit={async (values, { setSubmitting }) => {
-        const response = await handlePostApiForChat(values);
-        response ? setSubmitting(true) : setSubmitting(false);
-      }}
-      initialValues={chatInitialData}
-    >
-      {({ handleSubmit, handleChange, values }) => (
-        <Form
-          noValidate
-          onSubmit={handleSubmit}
-          style={{ padding: "0 15px 0 15px" }}
-        >
-          <Row>
-            {messageDetail &&
-              messageDetail?.map((data) => {
-                if (data?.senderId === loginDetail?._id) {
-                  return <SendMessages data={data} />;
-                } else {
-                  return <ReceivedMessages data={data} />;
-                }
-              })}
-          </Row>
-          <hr />
-          <Row>
-            <Col md={11} sm={11} xs={11}>
-              <CustInputField
-                type={"text"}
-                name={"chat"}
-                onChange={handleChange}
-                value={values?.chat}
-              />
-            </Col>
-            <Col
-              md={1}
-              sm={1}
-              xs={1}
-              style={{
-                backgroundColor: values?.chat ? "greenyellow" : "grey",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: values?.chat ? "pointer" : "not-allowed",
-              }}
-              onClick={handleSubmit}
-            >
-              <FontAwesomeIcon icon={faPaperPlane} size="1x" />
-            </Col>
-          </Row>
-        </Form>
-      )}
-    </Formik>
+    <div style={{ height: "50%" }}>
+      <Formik
+        validationSchema={chatSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          const response = await handlePostApiForChat(values);
+          response ? setSubmitting(true) : setSubmitting(false);
+        }}
+        initialValues={chatInitialData}
+      >
+        {({ handleSubmit, handleChange, values }) => (
+          <Form
+            noValidate
+            onSubmit={handleSubmit}
+            style={{ padding: "0 15px 0 15px" }}
+          >
+            <Row>
+              {messageDetail &&
+                messageDetail?.map((data) => {
+                  if (data?.senderId === loginDetail?._id) {
+                    return <SendMessages data={data} />;
+                  } else {
+                    return <ReceivedMessages data={data} />;
+                  }
+                })}
+              {messageDetail?.length < 1 && (
+                <p style={{ color: "gray", textAlign: "center" }}>
+                  Start new conversation
+                </p>
+              )}
+            </Row>
+            <hr />
+            <Row>
+              <Col md={11} sm={11} xs={11}>
+                <CustInputField
+                  type={"text"}
+                  name={"chat"}
+                  onChange={handleChange}
+                  value={values?.chat}
+                />
+              </Col>
+              <Col
+                md={1}
+                sm={1}
+                xs={1}
+                style={{
+                  backgroundColor: values?.chat ? "greenyellow" : "grey",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: values?.chat ? "pointer" : "not-allowed",
+                }}
+                onClick={handleSubmit}
+              >
+                <FontAwesomeIcon icon={faPaperPlane} size="1x" />
+              </Col>
+            </Row>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 
