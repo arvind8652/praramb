@@ -11,19 +11,19 @@ const CustModal = (props) => {
     modalFor,
     onHandleSubmit = () => {},
     defaultCloseBtn = true,
+    size = "lg",
   } = props;
 
   return (
     <Modal
       show={show}
       onHide={onHide}
-      size="lg"
+      size={size}
       dialogClassName="modal-90h"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
       keyboard={false}
-      scrollable
     >
       <Modal.Header closeButton={defaultCloseBtn}>
         <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
