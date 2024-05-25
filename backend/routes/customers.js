@@ -81,6 +81,7 @@ router.route("/").get(async (req, res) => {
         },
       },
     ]);
+    console.log("check -----------", resp);
     res.status(200).json({ statusMsg: "success", data: resp });
   } catch (err) {
     res.status(400).json({ statusMsg: "error", data: err.message });
